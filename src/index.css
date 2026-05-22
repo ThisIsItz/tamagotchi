@@ -57,6 +57,12 @@ h6 {
          text-white font-semibold rounded-xl py-2.5 transition-colors;
 }
 
+@utility input-base {
+  @apply w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5
+         text-gray-800 dark:text-gray-100 dark:bg-gray-800
+         outline-none focus:ring-2 focus:ring-primary-ring transition;
+}
+
 @utility stat-bar-good {
   @apply bg-stat-good;
 }
