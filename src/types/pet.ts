@@ -1,5 +1,3 @@
-import type { ActionType } from '../utils/constants'
-
 export type Mood =
   | 'ecstatic'
   | 'happy'
@@ -8,6 +6,8 @@ export type Mood =
   | 'angry'
   | 'sick'
   | 'sleeping'
+
+export type CreatureType = 'fox' | 'bunny'
 
 export interface MemoryEntry {
   id: string
@@ -30,4 +30,5 @@ export interface PetState {
   lastTickAt: number
   memories: MemoryEntry[]
   isAlive: boolean
+  creatureType: CreatureType
 }
