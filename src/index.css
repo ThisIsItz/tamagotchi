@@ -1,5 +1,21 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-primary: #8b5cf6;
+  --color-primary-hover: #7c3aed;
+  --color-primary-light: #f5f3ff;
+  --color-primary-muted: #ddd6fe;
+  --color-primary-ring: #a78bfa;
+  --color-secondary: #6366f1;
+  --color-secondary-light: #e0e7ff;
+
+  --color-gray-850: #18212f;
+
+  --color-stat-good: #34d399;
+  --color-stat-warn: #fbbf24;
+  --color-stat-bad: #fb7185;
+}
+
 *,
 *::before,
 *::after {
@@ -18,4 +34,37 @@ h4,
 h5,
 h6 {
   font-family: 'Press Start 2P', cursive;
+}
+
+@utility page-bg {
+  @apply min-h-screen bg-gradient-to-b from-primary-light to-secondary-light
+         dark:from-gray-900 dark:to-gray-800
+         flex items-center justify-center p-4;
+}
+
+@utility card {
+  @apply bg-white dark:bg-gray-850 rounded-3xl shadow-xl
+         border border-gray-100 dark:border-gray-700;
+}
+
+@utility header-gradient {
+  @apply bg-gradient-to-r from-primary to-secondary;
+}
+
+@utility btn-primary {
+  @apply bg-primary hover:bg-primary-hover
+         disabled:opacity-40 disabled:cursor-not-allowed
+         text-white font-semibold rounded-xl py-2.5 transition-colors;
+}
+
+@utility stat-bar-good {
+  @apply bg-stat-good;
+}
+
+@utility stat-bar-warn {
+  @apply bg-stat-warn;
+}
+
+@utility stat-bar-bad {
+  @apply bg-stat-bad;
 }
