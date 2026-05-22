@@ -13,11 +13,11 @@ const ACTION_LABELS: Record<ActionType, string> = {
 }
 
 const MEMORY_MESSAGES: Record<ActionType, string[]> = {
-  feed: ['Tiny snack', 'Favorite treat', 'Full tummy'],
-  play: ['Playtime', 'Happy chaos', 'Silly energy'],
+  feed: ['Tiny snack', 'Tasty treat', 'Full tummy'],
+  play: ['Happy zoomies', 'Happy moment', 'Playtime!'],
   sleep: ['Warm nap', 'Soft dreams', 'Cozy blanket'],
-  clean: ['Bubble bath', 'Fresh fur', 'Sparkly clean'],
-  pet: ['Head pats', 'Tiny heart', 'Warm cuddles']
+  clean: ['Bubble bath', 'Fresh and clean', 'Sparkly fur'],
+  pet: ['Head pats', 'Big hug', 'Warm cuddles']
 }
 
 const pickMessage = (action: ActionType): string => {
