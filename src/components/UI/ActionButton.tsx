@@ -17,7 +17,7 @@ export function ActionButton({ label, onClick, disabled = false }: Props) {
       whileTap={disabled ? undefined : { scale: 0.96 }}
       whileHover={disabled ? undefined : { y: -2 }}
       className={`
-        flex items-center gap-2 rounded-full px-4 py-2.5 cursor-pointer
+        flex items-center gap-2 rounded-full px-4 py-2.5
         text-sm font-semibold transition cur
         ${
           disabled

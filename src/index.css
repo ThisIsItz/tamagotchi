@@ -16,11 +16,11 @@
   --color-stat-bad: #fb7185;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+button, [role="button"] {
+  cursor: pointer;
 }
+
+
 
 body {
   margin: 0;

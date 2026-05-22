@@ -20,7 +20,7 @@ export const GameOver = () => {
           {name}'s tiny journey came to an end. But you can still care for
           another tiny creature.
         </p>
-        <button onClick={reset} className="btn-primary px-6 cursor-pointer">
+        <button onClick={reset} className="btn-primary px-6">
           Start again
         </button>
       </motion.div>

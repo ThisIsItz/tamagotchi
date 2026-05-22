@@ -41,7 +41,7 @@ export const NameSetup = () => {
         <button
           onClick={submit}
           disabled={!input.trim()}
-          className="w-full btn-primary cursor-pointer"
+          className="w-full btn-primary"
         >
           Say hello
         </button>
