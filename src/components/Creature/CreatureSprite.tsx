@@ -1,4 +1,8 @@
-import { motion, type TargetAndTransition } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  type TargetAndTransition
+} from 'framer-motion'
 import type { Mood, CreatureType } from '../../types/pet'
 import { usePetStore } from '../../store/usePetStore'
 
@@ -46,21 +50,35 @@ const bodyAnimations: Record<Mood, TargetAndTransition> = {
   }
 }
 
+const creatureSizes: Record<
+  CreatureType,
+  { height: number; containerWidth: number }
+> = {
+  fox: { height: 200, containerWidth: 210 },
+  bunny: { height: 130, containerWidth: 160 }
+}
+
 export function CreatureSprite({ mood }: Props) {
   const creatureType = usePetStore((s) => s.creatureType)
+  const { height, containerWidth } = creatureSizes[creatureType]
   return (
     <motion.div
       animate={bodyAnimations[mood]}
-      className="select-none"
-      style={{ display: 'inline-block' }}
+      className="select-none flex items-center justify-center"
+      style={{ display: 'inline-flex', width: containerWidth, height: 160 }}
     >
-      <img
-        src={moodImages[creatureType][mood]}
-        alt={mood}
-        width={150}
-        height={100}
-        style={{ imageRendering: 'auto' }}
-      />
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={`${creatureType}-${mood}`}
+          src={moodImages[creatureType][mood]}
+          alt={mood}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          style={{ height, width: 'auto', imageRendering: 'auto' }}
+        />
+      </AnimatePresence>
     </motion.div>
   )
 }
