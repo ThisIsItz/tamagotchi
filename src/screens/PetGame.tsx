@@ -1,5 +1,10 @@
 import { AppShell } from '../components/Layout/AppShell'
+import { StatsPanel } from '../components/UI/StatsPanel'
 
 export const PetGame = () => {
-  return <AppShell>Hello</AppShell>
+  return (
+    <AppShell>
+      <StatsPanel />
+    </AppShell>
+  )
 }
