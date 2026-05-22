@@ -12,7 +12,15 @@ const ACTION_LABELS: Record<ActionType, string> = {
   pet: 'Pets'
 }
 
-const MEMORY_MESSAGES: Record<ActionType, string[]> = {
+const ACTION_MESSAGES: Record<ActionType, string[]> = {
+  feed: ['Tasty!', 'Yummy!', 'Delicious!'],
+  play: ['That was fun!', 'Again?', 'Best time ever!'],
+  sleep: ['Time to rest', 'Good night', 'Sweet dreams'],
+  clean: ['So fresh!', 'Sparkling clean!', 'Like new!'],
+  pet: ['That was nice!', 'Love you!', 'More pets, please!']
+}
+
+const MEMORY_TEXTS: Record<ActionType, string[]> = {
   feed: ['Tiny snack', 'Tasty treat', 'Yummy meal'],
   play: ['Playtime', 'Fun games'],
   sleep: ['Warm nap', 'Soft dreams', 'Cozy rest'],
@@ -20,10 +28,13 @@ const MEMORY_MESSAGES: Record<ActionType, string[]> = {
   pet: ['Head pats', 'Big hug', 'Warm cuddles']
 }
 
-const pickMessage = (action: ActionType): string => {
-  const msgs = MEMORY_MESSAGES[action]
-  return msgs[Math.floor(Math.random() * msgs.length)]
-}
+const pick = (msgs: string[]): string =>
+  msgs[Math.floor(Math.random() * msgs.length)]
+
+const pickMessage = (action: ActionType): string =>
+  pick(ACTION_MESSAGES[action])
+const pickMemoryText = (action: ActionType): string =>
+  pick(MEMORY_TEXTS[action])
 
 const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
   return {
@@ -89,7 +100,7 @@ export const usePetStore = create<PetStore>()(
         const health = clamp(state.health + (effects.health ?? 0))
         const mood = deriveMood({ hunger, happiness, energy, hygiene, health })
 
-        const entry = makeMemoryEntry(action, message)
+        const entry = makeMemoryEntry(action, pickMemoryText(action))
         const memories = [entry, ...state.memories].slice(0, MAX_MEMORY)
 
         set({ hunger, happiness, energy, hygiene, health, mood, memories })
