@@ -11,7 +11,7 @@ export type Mood =
 
 export interface MemoryEntry {
   id: string
-  type: ActionType
+  type: string
   text: string
   createdAt: number
   sentiment: 'positive' | 'negative' | 'neutral'
