@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { PetState, MemoryEntry } from '../types/pet'
+import type { PetState, MemoryEntry, CreatureType } from '../types/pet'
 import { ACTION_EFFECTS, type ActionType, MAX_MEMORY } from '../utils/constants'
 import { clamp, deriveMood, applyDecay } from '../utils/petLogic'
 
@@ -13,10 +13,10 @@ const ACTION_LABELS: Record<ActionType, string> = {
 }
 
 const MEMORY_MESSAGES: Record<ActionType, string[]> = {
-  feed: ['Tiny snack', 'Tasty treat', 'Full tummy'],
-  play: ['Happy zoomies', 'Happy moment', 'Playtime!'],
-  sleep: ['Warm nap', 'Soft dreams', 'Cozy blanket'],
-  clean: ['Bubble bath', 'Fresh and clean', 'Sparkly fur'],
+  feed: ['Tiny snack', 'Tasty treat', 'Yummy meal'],
+  play: ['Playtime', 'Fun games'],
+  sleep: ['Warm nap', 'Soft dreams', 'Cozy rest'],
+  clean: ['Bubble bath', 'Refreshing shower'],
   pet: ['Head pats', 'Big hug', 'Warm cuddles']
 }
 
@@ -54,6 +54,7 @@ const DEFAULT_STATS = {
 
 const makeInitialState = (): PetState => {
   const now = Date.now()
+  const creatureType: CreatureType = Math.random() < 0.5 ? 'fox' : 'bunny'
   return {
     name: '',
     ...DEFAULT_STATS,
@@ -62,7 +63,8 @@ const makeInitialState = (): PetState => {
     lastTickAt: now,
     memories: [],
     isAlive: true,
-    bornAt: now
+    bornAt: now,
+    creatureType
   }
 }
 
