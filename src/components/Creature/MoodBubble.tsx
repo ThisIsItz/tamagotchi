@@ -34,10 +34,14 @@ export const MoodBubble = ({ mood, customMessage }: Props) => {
       className="relative inline-block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-2xl px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-md max-w-[180px] text-center"
     >
       {text}
-      {/* Border triangle */}
-      <span className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[9px] border-t-gray-200 dark:border-t-gray-600" aria-hidden />
-      {/* Fill triangle (1px smaller, sits on top) */}
-      <span className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[8px] border-t-white dark:border-t-gray-800" aria-hidden />
+      <span
+        className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[9px] border-t-gray-200 dark:border-t-gray-600"
+        aria-hidden
+      />
+      <span
+        className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[8px] border-t-white dark:border-t-gray-800"
+        aria-hidden
+      />
     </motion.div>
   )
 }
