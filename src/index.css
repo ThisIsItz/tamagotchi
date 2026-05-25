@@ -18,7 +18,7 @@
 }
 
 /* ── Theme overrides ── */
-[data-theme="violet"] {
+[data-theme='violet'] {
   --color-primary: #8b5cf6;
   --color-primary-hover: #7c3aed;
   --color-primary-light: #f5f3ff;
@@ -28,7 +28,7 @@
   --color-secondary-light: #e0e7ff;
 }
 
-[data-theme="orange"] {
+[data-theme='orange'] {
   --color-primary: #f97316;
   --color-primary-hover: #ea6c0a;
   --color-primary-light: #fff7ed;
@@ -38,7 +38,7 @@
   --color-secondary-light: #fee2e2;
 }
 
-[data-theme="green"] {
+[data-theme='green'] {
   --color-primary: #22c55e;
   --color-primary-hover: #16a34a;
   --color-primary-light: #f0fdf4;
@@ -48,7 +48,7 @@
   --color-secondary-light: #d1fae5;
 }
 
-[data-theme="blue"] {
+[data-theme='blue'] {
   --color-primary: #3b82f6;
   --color-primary-hover: #2563eb;
   --color-primary-light: #eff6ff;
@@ -58,7 +58,7 @@
   --color-secondary-light: #cffafe;
 }
 
-[data-theme="pink"] {
+[data-theme='pink'] {
   --color-primary: #ec4899;
   --color-primary-hover: #db2777;
   --color-primary-light: #fdf2f8;
@@ -68,12 +68,16 @@
   --color-secondary-light: #ffe4e6;
 }
 
-
-button, [role="button"] {
+button,
+[role='button'] {
   cursor: pointer;
 }
 
-
+button:disabled,
+[role='button']:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 body {
   margin: 0;
@@ -105,7 +109,7 @@ h6 {
 }
 
 @utility btn-primary {
-  @apply bg-primary hover:bg-primary-hover
+  @apply bg-primary hover:enabled:bg-primary-hover
          disabled:opacity-40 disabled:cursor-not-allowed
          text-white font-semibold rounded-xl py-2.5 transition-colors;
 }
@@ -126,4 +130,8 @@ h6 {
 
 @utility stat-bar-bad {
   @apply bg-stat-bad;
+}
+
+@utility section-title {
+  @apply text-xs font-semibold text-primary uppercase tracking-wide;
 }

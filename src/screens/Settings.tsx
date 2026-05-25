@@ -1,22 +1,32 @@
 import { useState } from 'react'
 import { usePetStore } from '../store/usePetStore'
-import { applyTheme, getTheme, applyColorMode, getColorMode, type Theme, type ColorMode } from '../utils/theme'
+import { ConfirmModal } from '../components/UI/ConfirmModal'
+import {
+  applyTheme,
+  getTheme,
+  applyColorMode,
+  getColorMode,
+  type Theme,
+  type ColorMode
+} from '../utils/theme'
 
 const THEMES: { id: Theme; label: string; color: string }[] = [
   { id: 'violet', label: 'Violet', color: '#8b5cf6' },
   { id: 'orange', label: 'Orange', color: '#f97316' },
-  { id: 'green',  label: 'Green',  color: '#22c55e' },
-  { id: 'blue',   label: 'Blue',   color: '#3b82f6' },
-  { id: 'pink',   label: 'Pink',   color: '#ec4899' },
+  { id: 'green', label: 'Green', color: '#22c55e' },
+  { id: 'blue', label: 'Blue', color: '#3b82f6' },
+  { id: 'pink', label: 'Pink', color: '#ec4899' }
 ]
 
 export const Settings = () => {
   const currentName = usePetStore((s) => s.name)
   const setName = usePetStore((s) => s.setName)
+  const reset = usePetStore((s) => s.reset)
   const [input, setInput] = useState(currentName)
   const [saved, setSaved] = useState(false)
   const [activeTheme, setActiveTheme] = useState<Theme>(getTheme())
   const [colorMode, setColorMode] = useState<ColorMode>(getColorMode())
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const handleSave = () => {
     const trimmed = input.trim()
@@ -39,31 +49,32 @@ export const Settings = () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-3">
-        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
-          Rename pet
-        </h2>
-        <input
-          type="text"
-          maxLength={20}
-          spellCheck={false}
-          value={input}
-          onChange={(e) => { setInput(e.target.value); setSaved(false) }}
-          onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-          className="input-base"
-        />
-        <button
-          onClick={handleSave}
-          disabled={!input.trim() || input.trim() === currentName}
-          className="w-full btn-primary"
-        >
-          {saved ? '✓ Saved!' : 'Save name'}
-        </button>
+        <h2 className="section-title">Rename pet</h2>
+        <div className="flex flex-row gap-2">
+          <input
+            type="text"
+            maxLength={20}
+            spellCheck={false}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value)
+              setSaved(false)
+            }}
+            onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+            className="input-base"
+          />
+          <button
+            onClick={handleSave}
+            disabled={!input.trim() || input.trim() === currentName}
+            className="btn-primary px-3 w-12"
+          >
+            💾
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
-          Color theme
-        </h2>
+        <h2 className="section-title">Color theme</h2>
         <div className="flex gap-3">
           {THEMES.map(({ id, label, color }) => (
             <button
@@ -77,19 +88,22 @@ export const Settings = () => {
                 style={{
                   backgroundColor: color,
                   borderColor: activeTheme === id ? color : 'transparent',
-                  boxShadow: activeTheme === id ? `0 0 0 2px white, 0 0 0 4px ${color}` : 'none',
+                  boxShadow:
+                    activeTheme === id
+                      ? `0 0 0 2px white, 0 0 0 4px ${color}`
+                      : 'none'
                 }}
               />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400">{label}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                {label}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
-          Appearance
-        </h2>
+        <h2 className="section-title">Appearance</h2>
         <div className="flex gap-3">
           {(['light', 'dark'] as ColorMode[]).map((mode) => (
             <button
@@ -102,11 +116,31 @@ export const Settings = () => {
               }`}
             >
               <span className="text-2xl">{mode === 'light' ? '☀️' : '🌙'}</span>
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 capitalize">{mode}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 capitalize">
+                {mode}
+              </span>
             </button>
           ))}
         </div>
       </div>
+
+      <div className="flex flex-col gap-3">
+        <h2 className="section-title">Danger zone</h2>
+        <button
+          onClick={() => setShowConfirm(true)}
+          className="w-full py-2.5 rounded-xl border-2 border-red-300 dark:border-red-700 text-red-500 dark:text-red-400 text-sm font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+        >
+          Reset pet
+        </button>
+      </div>
+
+      {showConfirm && (
+        <ConfirmModal
+          message="Reset your pet? This cannot be undone."
+          onConfirm={() => { reset(); setShowConfirm(false) }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
   )
 }

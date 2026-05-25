@@ -21,7 +21,7 @@ export const MemoryLog = () => {
 
   return (
     <div>
-      <h2 className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">
+      <h2 className="section-title mb-4">
         Memory
       </h2>
       <ul className="flex flex-col gap-2 overflow-y-auto max-h-[440px] pr-1">

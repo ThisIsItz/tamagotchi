@@ -19,8 +19,6 @@ interface Props {
 export function AppShell({ children, nav }: Props) {
   const name = usePetStore((s) => s.name)
   const age = usePetStore((s) => s.age)
-  const reset = usePetStore((s) => s.reset)
-  const [showConfirm, setShowConfirm] = useState(false)
 
   return (
     <div className="page-bg">
@@ -32,26 +30,10 @@ export function AppShell({ children, nav }: Props) {
             </h1>
             <p className="text-primary-muted text-xs">Age: {formatAge(age)}</p>
           </div>
-          <button
-            onClick={() => setShowConfirm(true)}
-            className="text-primary-muted hover:text-white text-xs underline transition-colors"
-          >
-            Reset
-          </button>
         </div>
         <div className="p-5 flex flex-col flex-1 min-h-[520px]">{children}</div>
         {nav}
       </div>
-      {showConfirm && (
-        <ConfirmModal
-          message="Reset your pet? This cannot be undone."
-          onConfirm={() => {
-            reset()
-            setShowConfirm(false)
-          }}
-          onCancel={() => setShowConfirm(false)}
-        />
-      )}
     </div>
   )
 }
