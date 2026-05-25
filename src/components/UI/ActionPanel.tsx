@@ -8,7 +8,7 @@ const PixelIcon = ({ src, alt }: { src: string; alt: string }) => (
     src={src}
     alt={alt}
     style={{ imageRendering: 'pixelated' }}
-    className="block h-10 w-10 object-cover"
+    className="block object-contain size-8"
   />
 )
 
