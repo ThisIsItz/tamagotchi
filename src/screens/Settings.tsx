@@ -94,7 +94,7 @@ export const Settings = () => {
                       : 'none'
                 }}
               />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 {label}
               </span>
             </button>
@@ -116,7 +116,7 @@ export const Settings = () => {
               }`}
             >
               <span className="text-2xl">{mode === 'light' ? '☀️' : '🌙'}</span>
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 capitalize">
+              <span className="text-sm text-gray-500 dark:text-gray-400 capitalize">
                 {mode}
               </span>
             </button>
@@ -137,7 +137,10 @@ export const Settings = () => {
       {showConfirm && (
         <ConfirmModal
           message="Reset your pet? This cannot be undone."
-          onConfirm={() => { reset(); setShowConfirm(false) }}
+          onConfirm={() => {
+            reset()
+            setShowConfirm(false)
+          }}
           onCancel={() => setShowConfirm(false)}
         />
       )}

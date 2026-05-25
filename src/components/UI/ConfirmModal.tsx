@@ -24,7 +24,7 @@ export function ConfirmModal({ message, onConfirm, onCancel }: Props) {
           transition={{ duration: 0.2 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <p className="text-sm text-gray-700 dark:text-gray-200 text-center">
+          <p className="text-md text-gray-700 dark:text-gray-200 text-center">
             {message}
           </p>
           <div className="flex gap-3">

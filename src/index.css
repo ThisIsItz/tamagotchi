@@ -111,7 +111,8 @@ h6 {
 @utility btn-primary {
   @apply bg-primary hover:enabled:bg-primary-hover
          disabled:opacity-40 disabled:cursor-not-allowed
-         text-white font-semibold rounded-xl py-2.5 transition-colors;
+         text-white font-semibold rounded-xl py-2.5 transition-colors
+         font-['Press_Start_2P'] text-sm tracking-wide;
 }
 
 @utility input-base {

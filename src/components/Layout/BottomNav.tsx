@@ -32,13 +32,11 @@ export function BottomNav({ active, onChange }: Props) {
               ${
                 isActive
                   ? 'text-primary'
-                  : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
           >
             <Icon width={20} height={20} fill="currentColor" />
-            <span className="text-[10px] font-semibold tracking-wide">
-              {label}
-            </span>
+            <span className="text-sm font-semibold tracking-wide">{label}</span>
           </button>
         )
       })}

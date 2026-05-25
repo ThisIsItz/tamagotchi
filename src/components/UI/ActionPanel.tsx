@@ -13,18 +13,26 @@ interface Props {
 }
 
 const ACTIONS: { action: ActionType; label: string; icon: ReactNode }[] = [
-  { action: 'feed',  label: 'Feed',  icon: <PlusIcon     width={16} height={16} /> },
-  { action: 'play',  label: 'Play',  icon: <PlayIcon     width={16} height={16} /> },
-  { action: 'sleep', label: 'Sleep', icon: <MoonIcon     width={16} height={16} /> },
-  { action: 'clean', label: 'Clean', icon: <SparklesIcon width={16} height={16} /> },
-  { action: 'pet',   label: 'Pet',   icon: <HeartIcon    width={16} height={16} /> },
+  { action: 'feed', label: 'Feed', icon: <PlusIcon width={16} height={16} /> },
+  { action: 'play', label: 'Play', icon: <PlayIcon width={16} height={16} /> },
+  {
+    action: 'sleep',
+    label: 'Sleep',
+    icon: <MoonIcon width={16} height={16} />
+  },
+  {
+    action: 'clean',
+    label: 'Clean',
+    icon: <SparklesIcon width={16} height={16} />
+  },
+  { action: 'pet', label: 'Pet', icon: <HeartIcon width={16} height={16} /> }
 ]
 
 export function ActionPanel({ onAction }: Props) {
   const isAlive = usePetStore((s) => s.isAlive)
 
   return (
-    <div className="flex justify-center gap-3 flex-wrap">
+    <div className="flex justify-center gap-3 flex-wrap mt-4">
       {ACTIONS.map(({ action, label, icon }) => (
         <ActionButton
           key={action}

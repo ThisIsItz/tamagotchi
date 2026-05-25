@@ -37,7 +37,6 @@ export function ActionButton({
           {icon}
         </span>
       )}
-      <span>{label}</span>
     </motion.button>
   )
 }

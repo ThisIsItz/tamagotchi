@@ -13,7 +13,7 @@ export const MemoryLog = () => {
 
   if (memory.length === 0) {
     return (
-      <p className="text-center text-sm text-gray-400 dark:text-gray-500 py-2">
+      <p className="text-center text-md text-gray-500 dark:text-gray-400 py-2">
         No memories yet. Interact with your pet to create memories!
       </p>
     )
@@ -21,21 +21,17 @@ export const MemoryLog = () => {
 
   return (
     <div>
-      <h2 className="section-title mb-4">
-        Memory
-      </h2>
+      <h2 className="section-title mb-4">Memory</h2>
       <ul className="flex flex-col gap-2 overflow-y-auto max-h-[440px] pr-1">
         {memory.map((entry) => (
           <li
             key={entry.id}
-            className="rounded-2xl bg-white/60 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 px-3 py-2"
+            className="rounded-2xl bg-white/60 dark:bg-gray-700/20 border border-primary dark:border-gray-700 px-3 py-2"
           >
             <div className="flex items-center justify-between gap-3">
-              <h2 className="font-medium text-xs text-gray-600 dark:text-gray-200">
-                {entry.text}
-              </h2>
+              <h2 className="font-medium text-xs text-primary">{entry.text}</h2>
 
-              <span className="text-gray-400 dark:text-gray-500 text-sm shrink-0">
+              <span className="text-gray-600 dark:text-gray-400 text-sm shrink-0">
                 {relativeTime(entry.createdAt)}
               </span>
             </div>

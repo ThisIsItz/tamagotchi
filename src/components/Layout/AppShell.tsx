@@ -28,7 +28,7 @@ export function AppShell({ children, nav }: Props) {
             <h1 className="text-white font-bold text-lg leading-tight capitalize">
               {name}
             </h1>
-            <p className="text-primary-muted text-xs">Age: {formatAge(age)}</p>
+            <p className="text-primary-muted text-sm">Age: {formatAge(age)}</p>
           </div>
         </div>
         <div className="p-5 flex flex-col flex-1 min-h-[520px]">{children}</div>

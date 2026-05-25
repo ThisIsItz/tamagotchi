@@ -23,7 +23,7 @@ export const NameSetup = () => {
           <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
             A tiny creature appeared!
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+          <p className="text-gray-600 dark:text-gray-400 text-md mt-1">
             Give your creature a name to begin.
           </p>
         </div>

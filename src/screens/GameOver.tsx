@@ -6,7 +6,7 @@ export const GameOver = () => {
   const reset = usePetStore((s) => s.reset)
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-4">
+    <div className="page-bg">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -16,7 +16,7 @@ export const GameOver = () => {
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
           Goodbye, {name}
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
+        <p className="text-gray-500 dark:text-gray-400 text-md">
           {name}'s tiny journey came to an end. But you can still care for
           another tiny creature.
         </p>
