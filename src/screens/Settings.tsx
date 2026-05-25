@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePetStore } from '../store/usePetStore'
-import { applyTheme, getTheme, type Theme } from '../utils/theme'
+import { applyTheme, getTheme, applyColorMode, getColorMode, type Theme, type ColorMode } from '../utils/theme'
 
 const THEMES: { id: Theme; label: string; color: string }[] = [
   { id: 'violet', label: 'Violet', color: '#8b5cf6' },
@@ -16,6 +16,7 @@ export const Settings = () => {
   const [input, setInput] = useState(currentName)
   const [saved, setSaved] = useState(false)
   const [activeTheme, setActiveTheme] = useState<Theme>(getTheme())
+  const [colorMode, setColorMode] = useState<ColorMode>(getColorMode())
 
   const handleSave = () => {
     const trimmed = input.trim()
@@ -28,6 +29,11 @@ export const Settings = () => {
   const handleTheme = (theme: Theme) => {
     applyTheme(theme)
     setActiveTheme(theme)
+  }
+
+  const handleColorMode = (mode: ColorMode) => {
+    applyColorMode(mode)
+    setColorMode(mode)
   }
 
   return (
@@ -75,6 +81,28 @@ export const Settings = () => {
                 }}
               />
               <span className="text-[10px] text-gray-500 dark:text-gray-400">{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
+          Appearance
+        </h2>
+        <div className="flex gap-3">
+          {(['light', 'dark'] as ColorMode[]).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => handleColorMode(mode)}
+              className={`flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border-2 transition-all ${
+                colorMode === mode
+                  ? 'border-primary bg-primary-light dark:bg-gray-700'
+                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800'
+              }`}
+            >
+              <span className="text-2xl">{mode === 'light' ? '☀️' : '🌙'}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 capitalize">{mode}</span>
             </button>
           ))}
         </div>
