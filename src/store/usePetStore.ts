@@ -13,14 +13,7 @@ const ACTION_LABELS: Record<ActionType, string> = {
   medicine: 'Medicine'
 }
 
-const ACTION_MESSAGES: Record<ActionType, string[]> = {
-  feed: ['Tasty!', 'Yummy!', 'Delicious!'],
-  play: ['That was fun!', 'Again?', 'Best time ever!'],
-  sleep: ['Time to rest', 'Good night', 'Sweet dreams'],
-  clean: ['So fresh!', 'Sparkling clean!', 'Like new!'],
-  pet: ['That was nice!', 'Love you!', 'More pets, please!'],
-  medicine: ['Feeling better!', 'That helped!']
-}
+
 
 const MEMORY_TEXTS: Record<ActionType, string[]> = {
   feed: ['Tiny snack', 'Tasty treat', 'Yummy meal'],
@@ -34,8 +27,6 @@ const MEMORY_TEXTS: Record<ActionType, string[]> = {
 const pick = (msgs: string[]): string =>
   msgs[Math.floor(Math.random() * msgs.length)]
 
-const pickMessage = (action: ActionType): string =>
-  pick(ACTION_MESSAGES[action])
 const pickMemoryText = (action: ActionType): string =>
   pick(MEMORY_TEXTS[action])
 
@@ -53,7 +44,7 @@ const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
 
 interface PetStore extends PetState {
   setName: (name: string) => void
-  performAction: (action: ActionType) => { message: string; rejected: boolean }
+  performAction: (action: ActionType) => { rejected: boolean }
   sleepRegen: () => void
   tick: (ticks?: number) => void
   reset: () => void
@@ -102,7 +93,6 @@ export const usePetStore = create<PetStore>()(
           (action === 'sleep' && state.energy >= 80)
 
         const effects = ACTION_EFFECTS[action]
-        const message = pickMessage(action)
 
         const hunger = clamp(state.hunger + (effects.hunger ?? 0))
         const happiness = clamp(state.happiness + (effects.happiness ?? 0))
@@ -115,7 +105,7 @@ export const usePetStore = create<PetStore>()(
         const memories = [entry, ...state.memories]
 
         set({ hunger, happiness, energy, hygiene, health, mood, memories })
-        return { message, rejected }
+        return { rejected }
       },
 
       sleepRegen: () => {

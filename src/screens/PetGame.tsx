@@ -15,7 +15,6 @@ export const PetGame = () => {
   usePetTick(isSleepingRef)
   const performAction = usePetStore((s) => s.performAction)
   const sleepRegen = usePetStore((s) => s.sleepRegen)
-  const [actionMessage, setActionMessage] = useState<string | undefined>()
   const [activeAction, setActiveAction] = useState<ActionType | 'no' | undefined>()
   const [isSleeping, setIsSleeping] = useState(false)
   const [tab, setTab] = useState<NavTab>('pet')
@@ -25,13 +24,11 @@ export const PetGame = () => {
   const handleAction = (action: ActionType) => {
     if (action === 'sleep') {
       if (isSleeping) {
-        // Wake up — stop regen immediately
         if (sleepTimer.current) { clearInterval(sleepTimer.current); sleepTimer.current = null }
         isSleepingRef.current = false
         setIsSleeping(false)
         setActiveAction(undefined)
       } else {
-        // Sleep — start regen immediately
         isSleepingRef.current = true
         setIsSleeping(true)
         setActiveAction('sleep')
@@ -41,23 +38,19 @@ export const PetGame = () => {
       return
     }
 
-    const { message, rejected } = performAction(action)
-    if (message) {
-      if (actionTimer.current) clearTimeout(actionTimer.current)
-      setActionMessage(message)
-      setActiveAction(rejected ? 'no' : action)
-      actionTimer.current = setTimeout(() => {
-        setActionMessage(undefined)
-        setActiveAction(undefined)
-      }, 4000)
-    }
+    const { rejected } = performAction(action)
+    if (actionTimer.current) clearTimeout(actionTimer.current)
+    setActiveAction(rejected ? 'no' : action)
+    actionTimer.current = setTimeout(() => {
+      setActiveAction(undefined)
+    }, 4000)
   }
 
   return (
     <AppShell nav={<BottomNav active={tab} onChange={setTab} />}>
       {tab === 'pet' && (
         <>
-          <CreatureStage actionMessage={actionMessage} activeAction={activeAction} isSleeping={isSleeping} />
+          <CreatureStage activeAction={activeAction} isSleeping={isSleeping} />
           <StatsPanel />
           <ActionPanel onAction={handleAction} isSleeping={isSleeping} />
         </>
