@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
 
 interface Props {
   label: string
-  icon: string
+  icon: ReactNode
   value: number
 }
 
@@ -23,7 +24,10 @@ export const StatBar = ({ label, icon, value }: Props) => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-lg w-6 text-center" aria-hidden>
+      <span
+        className="w-5 h-5 flex items-center justify-center flex-shrink-0"
+        aria-hidden
+      >
         {icon}
       </span>
       <div className="flex-1">
