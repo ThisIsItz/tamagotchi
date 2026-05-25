@@ -15,6 +15,7 @@ export const PetGame = () => {
   const performAction = usePetStore((s) => s.performAction)
   const { toast, showToast, clearToast } = useToast()
   const [actionMessage, setActionMessage] = useState<string | undefined>()
+  const [isCleaning, setIsCleaning] = useState(false)
 
   const handleAction = (action: ActionType) => {
     const msg = performAction(action)
@@ -23,11 +24,15 @@ export const PetGame = () => {
       setActionMessage(msg)
       setTimeout(() => setActionMessage(undefined), 2500)
     }
+    if (action === 'clean') {
+      setIsCleaning(true)
+      setTimeout(() => setIsCleaning(false), 100)
+    }
   }
 
   return (
     <AppShell>
-      <CreatureStage actionMessage={actionMessage} />
+      <CreatureStage actionMessage={actionMessage} isCleaning={isCleaning} />
       <StatsPanel />
       <ActionPanel onAction={handleAction} />
       <MemoryLog />

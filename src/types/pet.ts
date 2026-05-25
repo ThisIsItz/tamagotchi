@@ -17,6 +17,11 @@ export interface MemoryEntry {
   sentiment: 'positive' | 'negative' | 'neutral'
 }
 
+export interface PoopEntry {
+  id: string
+  x: number // 0-100 percentage within stage
+}
+
 export interface PetState {
   name: string
   hunger: number
@@ -31,4 +36,5 @@ export interface PetState {
   memories: MemoryEntry[]
   isAlive: boolean
   creatureType: CreatureType
+  poops: PoopEntry[]
 }
