@@ -30,8 +30,8 @@ export const StatBar = ({ label, icon, value }: Props) => {
       >
         {icon}
       </span>
-      <div className="flex-1">
-        <h1 className="text-xs text-gray-500 dark:text-gray-400">{label}</h1>
+      <div className="flex-1 gap-0.5 flex flex-col">
+        <h1 className="text-xs text-primary">{label}</h1>
         <div className="h-3 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
           <motion.div
             initial={false}
