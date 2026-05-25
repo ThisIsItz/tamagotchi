@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePetStore } from '../../store/usePetStore'
-import { CreatureSprite } from './CreatureSprite'
+import { CreatureSprite, SPRITE_DISPLAY_SIZE } from './CreatureSprite'
 import { MoodBubble } from './MoodBubble'
+import type { ActionType } from '../../utils/constants'
 
 const SHOW_DURATION = 4000
 const MIN_INTERVAL = 8000
 const MAX_INTERVAL = 20000
-
-import { SPRITE_DISPLAY_SIZE } from './CreatureSprite'
 
 const STAGE_WIDTH = 280
 const MAX_X = STAGE_WIDTH - SPRITE_DISPLAY_SIZE
@@ -16,14 +15,17 @@ const MAX_X = STAGE_WIDTH - SPRITE_DISPLAY_SIZE
 const MOVE_MIN = 3000
 const MOVE_MAX = 6000
 
-import type { ActionType } from '../../utils/constants'
-
 interface Props {
   actionMessage?: string
   activeAction?: ActionType | 'no'
+  isSleeping?: boolean
 }
 
-export function CreatureStage({ actionMessage, activeAction }: Props) {
+export function CreatureStage({
+  actionMessage,
+  activeAction,
+  isSleeping = false
+}: Props) {
   const mood = usePetStore((s) => s.mood)
   const [visible, setVisible] = useState<boolean>(false)
   const [bubbleKey, setBubbleKey] = useState<number>(0)
@@ -31,6 +33,7 @@ export function CreatureStage({ actionMessage, activeAction }: Props) {
   const moveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    if (isSleeping || activeAction === 'clean') return
     const scheduleMove = () => {
       const delay = MOVE_MIN + Math.random() * (MOVE_MAX - MOVE_MIN)
       moveTimer.current = setTimeout(() => {
@@ -39,8 +42,10 @@ export function CreatureStage({ actionMessage, activeAction }: Props) {
       }, delay)
     }
     scheduleMove()
-    return () => { if (moveTimer.current) clearTimeout(moveTimer.current) }
-  }, [])
+    return () => {
+      if (moveTimer.current) clearTimeout(moveTimer.current)
+    }
+  }, [isSleeping, activeAction])
 
   useEffect(() => {
     if (!actionMessage) return
@@ -99,6 +104,19 @@ export function CreatureStage({ actionMessage, activeAction }: Props) {
           </div>
           <CreatureSprite mood={mood} activeAction={activeAction} />
         </motion.div>
+
+        <AnimatePresence>
+          {isSleeping && (
+            <motion.div
+              key="sleep-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="absolute inset-0 rounded-md bg-indigo-950/50 pointer-events-none"
+            />
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

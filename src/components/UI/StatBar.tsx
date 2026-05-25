@@ -37,7 +37,7 @@ export const StatBar = ({ label, icon, value }: Props) => {
             initial={false}
             className={`h-full rounded-full ${barColor(pct)}`}
             animate={{ width: `${pct}%` }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 4, ease: 'easeOut' }}
           />
         </div>
       </div>

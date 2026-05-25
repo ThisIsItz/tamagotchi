@@ -11,14 +11,36 @@ import { Settings } from './Settings'
 import type { ActionType } from '../utils/constants'
 
 export const PetGame = () => {
-  usePetTick()
+  const isSleepingRef = useRef(false)
+  usePetTick(isSleepingRef)
   const performAction = usePetStore((s) => s.performAction)
+  const sleepRegen = usePetStore((s) => s.sleepRegen)
   const [actionMessage, setActionMessage] = useState<string | undefined>()
   const [activeAction, setActiveAction] = useState<ActionType | 'no' | undefined>()
+  const [isSleeping, setIsSleeping] = useState(false)
   const [tab, setTab] = useState<NavTab>('pet')
   const actionTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const sleepTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const handleAction = (action: ActionType) => {
+    if (action === 'sleep') {
+      if (isSleeping) {
+        // Wake up — stop regen immediately
+        if (sleepTimer.current) { clearInterval(sleepTimer.current); sleepTimer.current = null }
+        isSleepingRef.current = false
+        setIsSleeping(false)
+        setActiveAction(undefined)
+      } else {
+        // Sleep — start regen immediately
+        isSleepingRef.current = true
+        setIsSleeping(true)
+        setActiveAction('sleep')
+        sleepRegen()
+        sleepTimer.current = setInterval(sleepRegen, 3000)
+      }
+      return
+    }
+
     const { message, rejected } = performAction(action)
     if (message) {
       if (actionTimer.current) clearTimeout(actionTimer.current)
@@ -35,12 +57,9 @@ export const PetGame = () => {
     <AppShell nav={<BottomNav active={tab} onChange={setTab} />}>
       {tab === 'pet' && (
         <>
-          <CreatureStage
-            actionMessage={actionMessage}
-            activeAction={activeAction}
-          />
+          <CreatureStage actionMessage={actionMessage} activeAction={activeAction} isSleeping={isSleeping} />
           <StatsPanel />
-          <ActionPanel onAction={handleAction} />
+          <ActionPanel onAction={handleAction} isSleeping={isSleeping} />
         </>
       )}
       {tab === 'profile' && <Profile />}

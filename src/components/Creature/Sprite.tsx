@@ -7,20 +7,23 @@ interface Props {
 }
 
 export function Sprite({ config, scale = 1.25 }: Props) {
-  const { src, frameW, frameH, cols, frameCount, fps } = config
-  const [frame, setFrame] = useState(0)
+  const { src, frameW, frameH, cols, frameCount, fps, startFrame = 0, cropTop = 0 } = config
+  const [frame, setFrame] = useState(startFrame)
 
   const displayW = frameW * scale
-  const displayH = frameH * scale
+  const displayH = (frameH - cropTop) * scale
   const sheetW = frameW * cols * scale
 
   useEffect(() => {
-    setFrame(0)
+    setFrame(startFrame)
     const id = setInterval(() => {
-      setFrame((f) => (f + 1) % frameCount)
+      setFrame((f) => {
+        const next = f + 1
+        return next >= startFrame + frameCount ? startFrame : next
+      })
     }, 1000 / fps)
     return () => clearInterval(id)
-  }, [src, frameCount, fps])
+  }, [src, frameCount, fps, startFrame])
 
   const col = frame % cols
   const row = Math.floor(frame / cols)
@@ -32,7 +35,7 @@ export function Sprite({ config, scale = 1.25 }: Props) {
         height: displayH,
         backgroundImage: `url(${src})`,
         backgroundSize: `${sheetW}px auto`,
-        backgroundPosition: `${-(col * displayW)}px ${-(row * displayH)}px`,
+        backgroundPosition: `${-(col * displayW)}px ${-(row * frameH * scale + cropTop * scale)}px`,
         backgroundRepeat: 'no-repeat',
         imageRendering: 'pixelated'
       }}

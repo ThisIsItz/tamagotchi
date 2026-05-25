@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, type RefObject } from 'react'
 import { usePetStore } from '../store/usePetStore'
 import { TICK_INTERVAL_MS, MAX_CATCHUP_TICKS } from '../utils/constants'
 
-export function usePetTick() {
+export function usePetTick(isSleepingRef: RefObject<boolean>) {
   const tick = usePetStore((s) => s.tick)
   const lastTick = usePetStore((s) => s.lastTickAt)
   const isAlive = usePetStore((s) => s.isAlive)
@@ -18,7 +18,9 @@ export function usePetTick() {
 
   useEffect(() => {
     if (!isAlive) return
-    const id = setInterval(() => tick(1), TICK_INTERVAL_MS)
+    const id = setInterval(() => {
+      if (!isSleepingRef.current) tick(1)
+    }, TICK_INTERVAL_MS)
     return () => clearInterval(id)
   }, [tick, isAlive])
 }

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { usePetStore } from '../store/usePetStore'
+import { Sprite } from '../components/Creature/Sprite'
+import { DEAD_ANGEL_CONFIG } from '../data/sprites'
 
 export const GameOver = () => {
   const name = usePetStore((s) => s.name)
@@ -12,7 +14,7 @@ export const GameOver = () => {
         animate={{ opacity: 1 }}
         className="card p-8 w-full max-w-xs flex flex-col items-center gap-5 text-center"
       >
-        <div className="text-6xl">🌙</div>
+        <Sprite config={DEAD_ANGEL_CONFIG} scale={2} />
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
           Goodbye, {name}
         </h1>

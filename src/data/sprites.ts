@@ -8,14 +8,17 @@ import lvl1Like from '../assets/sprites/lvl1/like.png'
 import lvl1Dislike from '../assets/sprites/lvl1/dislike.png'
 import lvl1Pet from '../assets/sprites/lvl1/pet.png'
 import lvl1No from '../assets/sprites/lvl1/no.png'
+import deadSheet from '../assets/sprites/status/dead.png'
 
 export interface SpriteConfig {
   src: string
-  frameW: number // px width of a single frame
-  frameH: number // px height of a single frame
-  cols: number // how many frames per row in the sheet
+  frameW: number
+  frameH: number
+  cols: number
   frameCount: number
   fps: number
+  startFrame?: number
+  cropTop?: number
 }
 
 export type SpriteAnim =
@@ -29,6 +32,17 @@ export type SpriteAnim =
   | 'dislike'
   | 'pet'
   | 'no'
+
+export const DEAD_ANGEL_CONFIG: SpriteConfig = {
+  src: deadSheet,
+  frameW: 128,
+  frameH: 128,
+  cols: 2,
+  frameCount: 4,
+  startFrame: 0,
+  fps: 3,
+  cropTop: 40
+}
 
 export const LEVEL_SPRITES: Record<
   number,

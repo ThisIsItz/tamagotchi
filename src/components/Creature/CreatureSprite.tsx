@@ -69,9 +69,11 @@ export function CreatureSprite({ mood, activeAction, level = 1 }: Props) {
 
   const config = levelSprites[anim] ?? fallback
 
+  const freezeBody = anim === 'sleep' || anim === 'bath'
+
   return (
     <motion.div
-      animate={bodyAnimations[mood]}
+      animate={freezeBody ? {} : bodyAnimations[mood]}
       className="select-none flex items-center justify-center"
       style={{ width: SPRITE_DISPLAY_SIZE, height: SPRITE_DISPLAY_SIZE }}
     >
