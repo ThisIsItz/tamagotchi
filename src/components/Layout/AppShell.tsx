@@ -39,7 +39,7 @@ export function AppShell({ children, nav }: Props) {
             Reset
           </button>
         </div>
-        <div className="p-5 flex flex-col gap-5 flex-1 min-h-[520px]">{children}</div>
+        <div className="p-5 flex flex-col flex-1 min-h-[520px]">{children}</div>
         {nav}
       </div>
       {showConfirm && (

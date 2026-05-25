@@ -21,21 +21,21 @@ export const MemoryLog = () => {
 
   return (
     <div>
-      <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">
+      <h2 className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">
         Memory
       </h2>
-      <ul className="flex flex-col gap-1.5 max-h-44 overflow-y-auto pr-1">
+      <ul className="flex flex-col gap-2 overflow-y-auto max-h-[440px] pr-1">
         {memory.map((entry) => (
           <li
             key={entry.id}
             className="rounded-2xl bg-white/60 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 px-3 py-2"
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-xs text-gray-700 dark:text-gray-200">
+              <h2 className="font-medium text-xs text-gray-600 dark:text-gray-200">
                 {entry.text}
-              </span>
+              </h2>
 
-              <span className="text-gray-400 dark:text-gray-500 text-xs shrink-0">
+              <span className="text-gray-400 dark:text-gray-500 text-sm shrink-0">
                 {relativeTime(entry.createdAt)}
               </span>
             </div>

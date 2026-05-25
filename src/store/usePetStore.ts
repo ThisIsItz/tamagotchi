@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { PetState, MemoryEntry, CreatureType, PoopEntry } from '../types/pet'
-import { ACTION_EFFECTS, type ActionType, MAX_MEMORY, MAX_POOPS, POOP_CHANCE_PER_TICK } from '../utils/constants'
+import { ACTION_EFFECTS, type ActionType, MAX_POOPS, POOP_CHANCE_PER_TICK } from '../utils/constants'
 import { clamp, deriveMood, applyDecay } from '../utils/petLogic'
 
 const ACTION_LABELS: Record<ActionType, string> = {
@@ -103,7 +103,7 @@ export const usePetStore = create<PetStore>()(
         const mood = deriveMood({ hunger, happiness, energy, hygiene, health })
 
         const entry = makeMemoryEntry(action, pickMemoryText(action))
-        const memories = [entry, ...state.memories].slice(0, MAX_MEMORY)
+        const memories = [entry, ...state.memories]
 
         set({ hunger, happiness, energy, hygiene, health, mood, memories })
         return message

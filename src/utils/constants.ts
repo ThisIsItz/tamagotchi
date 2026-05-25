@@ -29,7 +29,6 @@ export const HEALTH_DECAY_AMOUNT_HIGH = 5  // 2+ stats critically low
 export const HEALTH_RECOVERY_AMOUNT = 0.5  // slower recovery
 export const HEALTH_RECOVERY_THRESHOLD = 55 // all stats must exceed this to recover
 
-export const MAX_MEMORY = 10
 export const MAX_POOPS = 5
 export const POOP_CHANCE_PER_TICK = 0.25 // 25% chance per tick to poop
 
