@@ -8,7 +8,7 @@ import type { ActionType } from '../../utils/constants'
 import { Sprite } from './Sprite'
 import { LEVEL_SPRITES, type SpriteAnim } from '../../data/sprites'
 
-const SCALE = 1.25
+const SCALE = 2
 const FRAME_SIZE = 128
 export const SPRITE_DISPLAY_SIZE = FRAME_SIZE * SCALE
 
