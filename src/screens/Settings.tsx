@@ -23,7 +23,6 @@ export const Settings = () => {
   const setName = usePetStore((s) => s.setName)
   const reset = usePetStore((s) => s.reset)
   const [input, setInput] = useState(currentName)
-  const [saved, setSaved] = useState(false)
   const [activeTheme, setActiveTheme] = useState<Theme>(getTheme())
   const [colorMode, setColorMode] = useState<ColorMode>(getColorMode())
   const [showConfirm, setShowConfirm] = useState(false)
@@ -32,8 +31,6 @@ export const Settings = () => {
     const trimmed = input.trim()
     if (!trimmed || trimmed === currentName) return
     setName(trimmed)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
   }
 
   const handleTheme = (theme: Theme) => {
@@ -56,10 +53,7 @@ export const Settings = () => {
             maxLength={20}
             spellCheck={false}
             value={input}
-            onChange={(e) => {
-              setInput(e.target.value)
-              setSaved(false)
-            }}
+            onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             className="input-base"
           />
@@ -94,7 +88,7 @@ export const Settings = () => {
                       : 'none'
                 }}
               />
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 {label}
               </span>
             </button>
@@ -116,7 +110,7 @@ export const Settings = () => {
               }`}
             >
               <span className="text-2xl">{mode === 'light' ? '☀️' : '🌙'}</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 capitalize">
+              <span className="text-sm text-gray-600 dark:text-gray-300 capitalize">
                 {mode}
               </span>
             </button>

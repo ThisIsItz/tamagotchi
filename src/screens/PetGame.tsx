@@ -7,7 +7,7 @@ import { BottomNav, type NavTab } from '../components/Layout/BottomNav'
 import { CreatureStage } from '../components/Creature/CreatureStage'
 import { StatsPanel } from '../components/UI/StatsPanel'
 import { ActionPanel } from '../components/UI/ActionPanel'
-import { MemoryLog } from '../components/UI/MemoryLog'
+import { Profile } from './Profile'
 import { Toast } from '../components/UI/Toast'
 import { Settings } from './Settings'
 import type { ActionType } from '../utils/constants'
@@ -37,7 +37,7 @@ export const PetGame = () => {
           <ActionPanel onAction={handleAction} />
         </>
       )}
-      {tab === 'memories' && <MemoryLog />}
+      {tab === 'profile' && <Profile />}
       {tab === 'settings' && <Settings />}
       {toast && (
         <Toast key={toast.key} message={toast.message} onDone={clearToast} />

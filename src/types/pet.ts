@@ -17,8 +17,11 @@ export interface MemoryEntry {
   sentiment: 'positive' | 'negative' | 'neutral'
 }
 
+export type Sex = 'male' | 'female'
+
 export interface PetState {
   name: string
+  sex: Sex
   hunger: number
   happiness: number
   energy: number

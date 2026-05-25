@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { PetState, MemoryEntry, CreatureType } from '../types/pet'
+import type { PetState, MemoryEntry, CreatureType, Sex } from '../types/pet'
 import { ACTION_EFFECTS, type ActionType } from '../utils/constants'
 import { clamp, deriveMood, applyDecay } from '../utils/petLogic'
 
@@ -9,7 +9,8 @@ const ACTION_LABELS: Record<ActionType, string> = {
   play: 'Play time',
   sleep: 'Nap',
   clean: 'Bath',
-  pet: 'Pets'
+  pet: 'Pets',
+  medicine: 'Medicine'
 }
 
 const ACTION_MESSAGES: Record<ActionType, string[]> = {
@@ -17,7 +18,8 @@ const ACTION_MESSAGES: Record<ActionType, string[]> = {
   play: ['That was fun!', 'Again?', 'Best time ever!'],
   sleep: ['Time to rest', 'Good night', 'Sweet dreams'],
   clean: ['So fresh!', 'Sparkling clean!', 'Like new!'],
-  pet: ['That was nice!', 'Love you!', 'More pets, please!']
+  pet: ['That was nice!', 'Love you!', 'More pets, please!'],
+  medicine: ['Feeling better!', 'That helped!']
 }
 
 const MEMORY_TEXTS: Record<ActionType, string[]> = {
@@ -25,7 +27,8 @@ const MEMORY_TEXTS: Record<ActionType, string[]> = {
   play: ['Playtime', 'Fun games'],
   sleep: ['Warm nap', 'Soft dreams', 'Cozy rest'],
   clean: ['Bubble bath', 'Refreshing shower'],
-  pet: ['Head pats', 'Big hug', 'Warm cuddles']
+  pet: ['Head pats', 'Big hug', 'Warm cuddles'],
+  medicine: ['Took medicine', 'Feeling better']
 }
 
 const pick = (msgs: string[]): string =>
@@ -66,8 +69,10 @@ const DEFAULT_STATS = {
 const makeInitialState = (): PetState => {
   const now = Date.now()
   const creatureType: CreatureType = Math.random() < 0.5 ? 'fox' : 'bunny'
+  const sex: Sex = Math.random() < 0.5 ? 'male' : 'female'
   return {
     name: '',
+    sex,
     ...DEFAULT_STATS,
     mood: 'happy',
     age: 0,
@@ -75,7 +80,7 @@ const makeInitialState = (): PetState => {
     memories: [],
     isAlive: true,
     bornAt: now,
-    creatureType,
+    creatureType
   }
 }
 

@@ -2,7 +2,7 @@ import HeartIcon from '@hackernoon/pixel-icon-library/icons/SVG/regular/heart.sv
 import NotebookIcon from '@hackernoon/pixel-icon-library/icons/SVG/regular/notebook.svg?react'
 import CogIcon from '@hackernoon/pixel-icon-library/icons/SVG/regular/cog.svg?react'
 
-export type NavTab = 'pet' | 'memories' | 'settings'
+export type NavTab = 'pet' | 'profile' | 'settings'
 
 interface Props {
   active: NavTab
@@ -15,7 +15,7 @@ const TABS: {
   Icon: React.FC<React.SVGProps<SVGSVGElement>>
 }[] = [
   { id: 'pet', label: 'Pet', Icon: HeartIcon },
-  { id: 'memories', label: 'Memories', Icon: NotebookIcon },
+  { id: 'profile', label: 'Profile', Icon: NotebookIcon },
   { id: 'settings', label: 'Settings', Icon: CogIcon }
 ]
 
