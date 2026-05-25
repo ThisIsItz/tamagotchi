@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePetStore } from '../../store/usePetStore'
 import { CreatureSprite, SPRITE_DISPLAY_SIZE } from './CreatureSprite'
+import { Sprite } from './Sprite'
+import { FOOD_EAT_CONFIG } from '../../data/sprites'
 import type { ActionType } from '../../utils/constants'
 
 const STAGE_WIDTH = 300
@@ -46,6 +48,21 @@ export function CreatureStage({ activeAction, isSleeping = false }: Props) {
         >
           <CreatureSprite mood={mood} activeAction={activeAction} />
         </motion.div>
+
+        <AnimatePresence>
+          {activeAction === 'feed' && (
+            <motion.div
+              key="food"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 0.5 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.2 }}
+              className="absolute bottom-16 left-1/2 -translate-x-1/2 pointer-events-none"
+            >
+              <Sprite config={FOOD_EAT_CONFIG} scale={1.5} />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence>
           {isSleeping && (
