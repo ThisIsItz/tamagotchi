@@ -17,7 +17,6 @@ export const PetGame = () => {
   const performAction = usePetStore((s) => s.performAction)
   const { toast, showToast, clearToast } = useToast()
   const [actionMessage, setActionMessage] = useState<string | undefined>()
-  const [isCleaning, setIsCleaning] = useState(false)
   const [tab, setTab] = useState<NavTab>('pet')
 
   const handleAction = (action: ActionType) => {
@@ -27,17 +26,13 @@ export const PetGame = () => {
       setActionMessage(msg)
       setTimeout(() => setActionMessage(undefined), 2500)
     }
-    if (action === 'clean') {
-      setIsCleaning(true)
-      setTimeout(() => setIsCleaning(false), 100)
-    }
   }
 
   return (
     <AppShell nav={<BottomNav active={tab} onChange={setTab} />}>
       {tab === 'pet' && (
         <>
-          <CreatureStage actionMessage={actionMessage} isCleaning={isCleaning} />
+          <CreatureStage actionMessage={actionMessage} />
           <StatsPanel />
           <ActionPanel onAction={handleAction} />
         </>

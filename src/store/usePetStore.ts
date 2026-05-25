@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { PetState, MemoryEntry, CreatureType, PoopEntry } from '../types/pet'
-import { ACTION_EFFECTS, type ActionType, MAX_POOPS, POOP_CHANCE_PER_TICK } from '../utils/constants'
+import type { PetState, MemoryEntry, CreatureType } from '../types/pet'
+import { ACTION_EFFECTS, type ActionType } from '../utils/constants'
 import { clamp, deriveMood, applyDecay } from '../utils/petLogic'
 
 const ACTION_LABELS: Record<ActionType, string> = {
@@ -51,7 +51,6 @@ const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
 interface PetStore extends PetState {
   setName: (name: string) => void
   performAction: (action: ActionType) => string
-  clearPoops: () => void
   tick: (ticks?: number) => void
   reset: () => void
 }
@@ -77,7 +76,6 @@ const makeInitialState = (): PetState => {
     isAlive: true,
     bornAt: now,
     creatureType,
-    poops: []
   }
 }
 
@@ -109,8 +107,6 @@ export const usePetStore = create<PetStore>()(
         return message
       },
 
-      clearPoops: () => set({ poops: [] }),
-
       tick: (ticks = 1) => {
         const state = get()
         if (!state.isAlive) return
@@ -119,15 +115,6 @@ export const usePetStore = create<PetStore>()(
         for (let i = 0; i < ticks; i++) {
           const decayed = applyDecay(merged)
           merged = { ...merged, ...decayed }
-
-          // Random poop chance per tick
-          if (Math.random() < POOP_CHANCE_PER_TICK && merged.poops.length < MAX_POOPS) {
-            const newPoop: PoopEntry = {
-              id: `${Date.now()}-${Math.random()}`,
-              x: 10 + Math.random() * 80
-            }
-            merged = { ...merged, poops: [...merged.poops, newPoop] }
-          }
         }
 
         const isAlive = merged.health > 0
