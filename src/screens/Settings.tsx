@@ -60,9 +60,9 @@ export const Settings = () => {
           <button
             onClick={handleSave}
             disabled={!input.trim() || input.trim() === currentName}
-            className="btn-primary px-3 w-12"
+            className="btn-primary px-3 w-12 flex items-center justify-center"
           >
-            💾
+            <i className="hn hn-save-solid text-lg" />
           </button>
         </div>
       </div>
@@ -109,7 +109,13 @@ export const Settings = () => {
                   : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800'
               }`}
             >
-              <span className="text-2xl">{mode === 'light' ? '☀️' : '🌙'}</span>
+              <span className="text-2xl fill-primary">
+                {mode === 'light' ? (
+                  <i className="hn hn-brightness-high-solid text-primary" />
+                ) : (
+                  <i className="hn hn-moon-solid text-primary" />
+                )}
+              </span>
               <span className="text-sm text-gray-600 dark:text-gray-300 capitalize">
                 {mode}
               </span>

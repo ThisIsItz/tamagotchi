@@ -7,6 +7,10 @@ interface Props {
   disabled?: boolean
 }
 
+export const HnIcon = ({ name }: { name: string }) => (
+  <i className={`hn hn-${name} text-3xl text-primary`} />
+)
+
 export function ActionButton({ icon, onClick, disabled = false }: Props) {
   return (
     <motion.button
@@ -17,7 +21,7 @@ export function ActionButton({ icon, onClick, disabled = false }: Props) {
       whileTap={disabled ? undefined : { scale: 0.96 }}
       whileHover={disabled ? undefined : { y: -2 }}
       className={`
-        flex items-center justify-center rounded-2xl p-2
+        flex items-center justify-center rounded-2xl p-1 size-15
         transition
         ${
           disabled

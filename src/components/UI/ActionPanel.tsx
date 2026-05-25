@@ -1,47 +1,35 @@
 import { usePetStore } from '../../store/usePetStore'
-import { ActionButton } from './ActionButton'
+import { ActionButton, HnIcon } from './ActionButton'
 import type { ActionType } from '../../utils/constants'
 import type { ReactNode } from 'react'
-
-const PixelIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img
-    src={src}
-    alt={alt}
-    style={{ imageRendering: 'pixelated' }}
-    className="block object-contain size-8"
-  />
-)
+import FeedIcon from '../../assets/icons/feed.svg?react'
 
 interface Props {
   onAction: (action: ActionType) => void
 }
 
 const BASE_ACTIONS: { action: ActionType; icon: ReactNode }[] = [
-  { action: 'feed', icon: <PixelIcon src="/icon-eat.png" alt="feed" /> },
-  { action: 'play', icon: <PixelIcon src="/icon-game.png" alt="play" /> },
-  { action: 'sleep', icon: <PixelIcon src="/icon-lights.png" alt="sleep" /> },
-  { action: 'clean', icon: <PixelIcon src="/icon-bath.png" alt="clean" /> },
-  { action: 'pet', icon: <PixelIcon src="/icon-pet.png" alt="pet" /> }
+  { action: 'feed', icon: <FeedIcon className="size-8 fill-primary" /> },
+  { action: 'play', icon: <HnIcon name="gaming" /> },
+  { action: 'sleep', icon: <HnIcon name="lightbulb-solid" /> },
+  { action: 'clean', icon: <HnIcon name="broom-solid" /> },
+  { action: 'pet', icon: <HnIcon name="huggingface" /> }
 ]
+
+const MEDICINE_ACTION = {
+  action: 'medicine' as ActionType,
+  icon: <HnIcon name="science" />
+}
 
 export function ActionPanel({ onAction }: Props) {
   const isAlive = usePetStore((s) => s.isAlive)
   const mood = usePetStore((s) => s.mood)
   const isSick = mood === 'sick'
 
-  const actions = isSick
-    ? [
-        ...BASE_ACTIONS,
-        {
-          action: 'medicine' as ActionType,
-          label: 'Medicine',
-          icon: <PixelIcon src="/icon-medicine.png" alt="medicine" />
-        }
-      ]
-    : BASE_ACTIONS
+  const actions = isSick ? [...BASE_ACTIONS, MEDICINE_ACTION] : BASE_ACTIONS
 
   return (
-    <div className="flex justify-center gap-3 flex-wrap mt-4">
+    <div className="flex justify-center gap-4 flex-wrap mt-4">
       {actions.map(({ action, icon }) => (
         <ActionButton
           key={action}
