@@ -16,7 +16,7 @@ export const NameSetup = () => {
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        className="card p-8 w-full max-w-sm flex flex-col items-center gap-6"
+        className="card p-8 w-full max-w-md flex flex-col items-center gap-6"
       >
         <div className="text-6xl">🥚</div>
         <div className="text-center">
