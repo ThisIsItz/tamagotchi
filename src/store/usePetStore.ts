@@ -53,7 +53,7 @@ const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
 
 interface PetStore extends PetState {
   setName: (name: string) => void
-  performAction: (action: ActionType) => string
+  performAction: (action: ActionType) => { message: string; rejected: boolean }
   tick: (ticks?: number) => void
   reset: () => void
 }
@@ -93,7 +93,12 @@ export const usePetStore = create<PetStore>()(
 
       performAction: (action) => {
         const state = get()
-        if (!state.isAlive) return ''
+        if (!state.isAlive) return { message: '', rejected: false }
+
+        const rejected =
+          (action === 'feed' && state.hunger >= 100) ||
+          (action === 'play' && state.energy <= 20) ||
+          (action === 'sleep' && state.energy >= 80)
 
         const effects = ACTION_EFFECTS[action]
         const message = pickMessage(action)
@@ -109,7 +114,7 @@ export const usePetStore = create<PetStore>()(
         const memories = [entry, ...state.memories]
 
         set({ hunger, happiness, energy, hygiene, health, mood, memories })
-        return message
+        return { message, rejected }
       },
 
       tick: (ticks = 1) => {

@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { usePetStore } from '../../store/usePetStore'
-import { ConfirmModal } from '../UI/ConfirmModal'
 
 function formatAge(ticks: number): string {
   const totalSecs = ticks * 60

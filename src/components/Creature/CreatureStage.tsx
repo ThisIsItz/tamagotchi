@@ -8,18 +8,22 @@ const SHOW_DURATION = 4000
 const MIN_INTERVAL = 8000
 const MAX_INTERVAL = 20000
 
+import { SPRITE_DISPLAY_SIZE } from './CreatureSprite'
+
 const STAGE_WIDTH = 280
-const SPRITE_WIDTH = 160
-const MAX_X = STAGE_WIDTH - SPRITE_WIDTH
+const MAX_X = STAGE_WIDTH - SPRITE_DISPLAY_SIZE
 
 const MOVE_MIN = 3000
 const MOVE_MAX = 6000
 
+import type { ActionType } from '../../utils/constants'
+
 interface Props {
   actionMessage?: string
+  activeAction?: ActionType | 'no'
 }
 
-export function CreatureStage({ actionMessage }: Props) {
+export function CreatureStage({ actionMessage, activeAction }: Props) {
   const mood = usePetStore((s) => s.mood)
   const [visible, setVisible] = useState<boolean>(false)
   const [bubbleKey, setBubbleKey] = useState<number>(0)
@@ -80,7 +84,7 @@ export function CreatureStage({ actionMessage }: Props) {
           animate={{ x: posX }}
           transition={{ duration: 1.8, ease: 'easeInOut' }}
           className="absolute bottom-0"
-          style={{ width: SPRITE_WIDTH }}
+          style={{ width: SPRITE_DISPLAY_SIZE }}
         >
           <div className="flex justify-center mb-2 h-16 items-end">
             <AnimatePresence mode="wait">
@@ -93,7 +97,7 @@ export function CreatureStage({ actionMessage }: Props) {
               )}
             </AnimatePresence>
           </div>
-          <CreatureSprite mood={mood} />
+          <CreatureSprite mood={mood} activeAction={activeAction} />
         </motion.div>
       </div>
     </div>

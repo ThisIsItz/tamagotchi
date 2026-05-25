@@ -1,0 +1,119 @@
+import lvl1Stand from '../assets/sprites/lvl1/stand.png'
+import lvl1Sleep from '../assets/sprites/lvl1/sleep.png'
+import lvl1Sick from '../assets/sprites/lvl1/sick.png'
+import lvl1Bath from '../assets/sprites/lvl1/bath.png'
+import lvl1Hot from '../assets/sprites/lvl1/hot.png'
+import lvl1Cold from '../assets/sprites/lvl1/cold.png'
+import lvl1Like from '../assets/sprites/lvl1/like.png'
+import lvl1Dislike from '../assets/sprites/lvl1/dislike.png'
+import lvl1Pet from '../assets/sprites/lvl1/pet.png'
+import lvl1No from '../assets/sprites/lvl1/no.png'
+
+export interface SpriteConfig {
+  src: string
+  frameW: number // px width of a single frame
+  frameH: number // px height of a single frame
+  cols: number // how many frames per row in the sheet
+  frameCount: number
+  fps: number
+}
+
+export type SpriteAnim =
+  | 'idle'
+  | 'sleep'
+  | 'sick'
+  | 'bath'
+  | 'hot'
+  | 'cold'
+  | 'like'
+  | 'dislike'
+  | 'pet'
+  | 'no'
+
+export const LEVEL_SPRITES: Record<
+  number,
+  Partial<Record<SpriteAnim, SpriteConfig>>
+> = {
+  1: {
+    idle: {
+      src: lvl1Stand,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 4
+    },
+    sleep: {
+      src: lvl1Sleep,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 3
+    },
+    sick: {
+      src: lvl1Sick,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 2
+    },
+    bath: {
+      src: lvl1Bath,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 6
+    },
+    hot: {
+      src: lvl1Hot,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 5
+    },
+    cold: {
+      src: lvl1Cold,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 2,
+      fps: 3
+    },
+    like: {
+      src: lvl1Like,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 6
+    },
+    dislike: {
+      src: lvl1Dislike,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 5
+    },
+    pet: {
+      src: lvl1Pet,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 6
+    },
+    no: {
+      src: lvl1No,
+      frameW: 128,
+      frameH: 128,
+      cols: 2,
+      frameCount: 4,
+      fps: 5
+    }
+  }
+}
