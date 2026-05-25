@@ -13,9 +13,10 @@ function formatAge(ticks: number): string {
 
 interface Props {
   children: React.ReactNode
+  nav?: React.ReactNode
 }
 
-export function AppShell({ children }: Props) {
+export function AppShell({ children, nav }: Props) {
   const name = usePetStore((s) => s.name)
   const age = usePetStore((s) => s.age)
   const reset = usePetStore((s) => s.reset)
@@ -23,7 +24,7 @@ export function AppShell({ children }: Props) {
 
   return (
     <div className="page-bg">
-      <div className="card w-full max-w-md overflow-hidden">
+      <div className="card w-full max-w-md overflow-hidden flex flex-col">
         <div className="header-gradient px-5 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-white font-bold text-lg leading-tight capitalize">
@@ -38,7 +39,8 @@ export function AppShell({ children }: Props) {
             Reset
           </button>
         </div>
-        <div className="p-5 flex flex-col gap-5">{children}</div>
+        <div className="p-5 flex flex-col gap-5 flex-1 min-h-[520px]">{children}</div>
+        {nav}
       </div>
       {showConfirm && (
         <ConfirmModal
