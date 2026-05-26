@@ -11,6 +11,7 @@ import lvl1No from '../assets/sprites/lvl1/no.png'
 import deadSheet from '../assets/sprites/status/dead.png'
 import foodSheet from '../assets/sprites/status/food.png'
 import medicineSheet from '../assets/sprites/status/medicine.png'
+import eggsSheet from '../assets/sprites/status/eggs.png'
 
 export interface SpriteConfig {
   src: string
@@ -69,6 +70,33 @@ export const MEDICINE_CONFIG: SpriteConfig = {
   fps: 1.25,
   loop: false
 }
+
+// Eggs sheet: 16x16 frames, 13 cols. Rows 27-32 (1-indexed) = rows 26-31 (0-indexed).
+// Idle anim: cols 1-7 (0-indexed 0-6). Hatch anim: cols 8-13 (0-indexed 7-12).
+const EGG_COLS = 13
+const EGG_ROWS = [26, 27, 28, 29, 30, 31]
+
+export const EGG_IDLE_CONFIGS: SpriteConfig[] = EGG_ROWS.map((row) => ({
+  src: eggsSheet,
+  frameW: 16,
+  frameH: 16,
+  cols: EGG_COLS,
+  frameCount: 7,
+  startFrame: row * EGG_COLS,
+  fps: 4,
+  loop: true,
+}))
+
+export const EGG_HATCH_CONFIGS: SpriteConfig[] = EGG_ROWS.map((row) => ({
+  src: eggsSheet,
+  frameW: 16,
+  frameH: 16,
+  cols: EGG_COLS,
+  frameCount: 6,
+  startFrame: row * EGG_COLS + 7,
+  fps: 5,
+  loop: false,
+}))
 
 export const LEVEL_SPRITES: Record<
   number,

@@ -4,9 +4,10 @@ import type { SpriteConfig } from '../../data/sprites'
 interface Props {
   config: SpriteConfig
   scale?: number
+  onComplete?: () => void
 }
 
-export function Sprite({ config, scale = 1.25 }: Props) {
+export function Sprite({ config, scale = 1.25, onComplete }: Props) {
   const { src, frameW, frameH, cols, frameCount, fps, startFrame = 0, cropTop = 0, cropBottom = 0, loop = true } = config
   const [frame, setFrame] = useState(startFrame)
 
@@ -19,7 +20,14 @@ export function Sprite({ config, scale = 1.25 }: Props) {
     const lastFrame = startFrame + frameCount - 1
     const id = setInterval(() => {
       setFrame((f) => {
-        if (f >= lastFrame) return loop ? startFrame : lastFrame
+        if (f >= lastFrame) {
+          if (!loop) {
+            clearInterval(id)
+            onComplete?.()
+            return lastFrame
+          }
+          return startFrame
+        }
         return f + 1
       })
     }, 1000 / fps)
