@@ -34,4 +34,5 @@ export interface PetState {
   memories: MemoryEntry[]
   isAlive: boolean
   creatureType: CreatureType
+  lowStatTicks: number
 }

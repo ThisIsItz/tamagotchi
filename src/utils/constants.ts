@@ -15,7 +15,7 @@ export const STAT_MAX = 100
 export const MOOD_THRESHOLDS = {
   sleepingEnergy: 15,
   sickHealth: 30,
-  sickCombo: 15, // hunger and hygiene both below this: sick
+  sickCombo: 15,
   angryHappiness: 20,
   sadHappiness: 40,
   sadHunger: 25,
@@ -26,6 +26,7 @@ export const MOOD_THRESHOLDS = {
 export const HEALTH_DECAY_THRESHOLD = 45 // if any stat below this: health decays
 export const HEALTH_DECAY_AMOUNT_LOW = 2 // 1 stat critically low
 export const HEALTH_DECAY_AMOUNT_HIGH = 5 // 2+ stats critically low
+export const HEALTH_DECAY_DELAY_TICKS = 4 // ticks with low stats before health drops (~60s)
 export const HEALTH_RECOVERY_AMOUNT = 0.5 // slower recovery
 export const HEALTH_RECOVERY_THRESHOLD = 55 // all stats must exceed this to recover
 

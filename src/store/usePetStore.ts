@@ -55,7 +55,8 @@ const DEFAULT_STATS = {
   happiness: 80,
   energy: 80,
   hygiene: 80,
-  health: 100
+  health: 100,
+  lowStatTicks: 0
 }
 
 const makeInitialState = (): PetState => {

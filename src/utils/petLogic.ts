@@ -5,6 +5,7 @@ import {
   HEALTH_DECAY_THRESHOLD,
   HEALTH_DECAY_AMOUNT_LOW,
   HEALTH_DECAY_AMOUNT_HIGH,
+  HEALTH_DECAY_DELAY_TICKS,
   HEALTH_RECOVERY_AMOUNT,
   HEALTH_RECOVERY_THRESHOLD,
   STAT_MIN,
@@ -48,7 +49,6 @@ export const applyDecay = (pet: PetState): Partial<PetState> => {
   const energy = clamp(pet.energy - DECAY.energy)
   const hygiene = clamp(pet.hygiene - DECAY.hygiene)
 
-  // Extra happiness penalty if hunger, energy or hygiene are low
   const lowPenalty = [hunger, energy, hygiene].filter(
     (s) => s < HEALTH_DECAY_THRESHOLD
   ).length
@@ -58,24 +58,27 @@ export const applyDecay = (pet: PetState): Partial<PetState> => {
   const lowStats = [hunger, happiness, energy, hygiene].filter(
     (s) => s < HEALTH_DECAY_THRESHOLD
   ).length
-  const isSickCombo =
-    hunger < T.sickCombo && hygiene < T.sickCombo
+  const isSickCombo = hunger < T.sickCombo && hygiene < T.sickCombo
+  const isLow = isSickCombo || lowStats >= 1
   const shouldRecoverHealth = [hunger, happiness, energy, hygiene].every(
     (s) => s >= HEALTH_RECOVERY_THRESHOLD
   )
 
-  let healthDelta = 0
+  const lowStatTicks = isLow ? pet.lowStatTicks + 1 : 0
 
-  if (isSickCombo || lowStats >= 2) {
-    healthDelta = -HEALTH_DECAY_AMOUNT_HIGH
-  } else if (lowStats === 1) {
-    healthDelta = -HEALTH_DECAY_AMOUNT_LOW
-  } else if (shouldRecoverHealth) {
+  let healthDelta = 0
+  if (isLow && lowStatTicks >= HEALTH_DECAY_DELAY_TICKS) {
+    if (isSickCombo || lowStats >= 2) {
+      healthDelta = -HEALTH_DECAY_AMOUNT_HIGH
+    } else {
+      healthDelta = -HEALTH_DECAY_AMOUNT_LOW
+    }
+  } else if (!isLow && shouldRecoverHealth) {
     healthDelta = HEALTH_RECOVERY_AMOUNT
   }
   const health = clamp(pet.health + healthDelta)
 
   const mood = deriveMood({ hunger, happiness, energy, hygiene, health })
 
-  return { hunger, happiness, energy, hygiene, health, mood }
+  return { hunger, happiness, energy, hygiene, health, mood, lowStatTicks }
 }
