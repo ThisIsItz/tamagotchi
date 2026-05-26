@@ -6,15 +6,15 @@ A browser-based virtual pet game inspired by the classic Tamagotchi, built as a 
 
 **Hatching and naming**
 
-<video src="https://github.com/user-attachments/assets/0416ea7f-2035-4989-b61b-5240ab599b41" controls width="360"></video>
+<video src="https://github.com/user-attachments/assets/0416ea7f-2035-4989-b61b-5240ab599b41" controls width="240"></video>
 
 **Caring for your pet**
 
-<video src="https://github.com/user-attachments/assets/77b8029c-a5a7-4045-bf0a-4aae76cd3c15" controls width="360"></video>
+<video src="https://github.com/user-attachments/assets/77b8029c-a5a7-4045-bf0a-4aae76cd3c15" controls width="240"></video>
 
 **Mini-game**
 
-<video src="https://github.com/user-attachments/assets/b07ab0af-8729-4353-98cf-ff71bf894e7f" controls width="360"></video>
+<video src="https://github.com/user-attachments/assets/b07ab0af-8729-4353-98cf-ff71bf894e7f" controls width="240"></video>
 
 ## What it is
 
