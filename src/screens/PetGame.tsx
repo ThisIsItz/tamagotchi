@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { usePetStore } from '../store/usePetStore'
 import { usePetTick } from '../hooks/usePetTick'
 import { AppShell } from '../components/Layout/AppShell'
@@ -66,12 +66,22 @@ export const PetGame = () => {
     setShowGame(false)
   }
 
+  const handleGameCancel = () => {
+    setShowGame(false)
+  }
+
+  useEffect(() => {
+    if (tab !== 'pet' && showGame) {
+      setShowGame(false)
+    }
+  }, [tab, showGame])
+
   return (
     <AppShell nav={<BottomNav active={tab} onChange={setTab} />}>
       {tab === 'pet' && (
         <>
           {showGame ? (
-            <CatchTreats onClose={handleGameFinish} />
+            <CatchTreats onClose={handleGameFinish} onCancel={handleGameCancel} />
           ) : (
             <>
               <CreatureStage activeAction={activeAction} isSleeping={isSleeping} />

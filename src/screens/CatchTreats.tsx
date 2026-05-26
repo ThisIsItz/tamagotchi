@@ -26,9 +26,10 @@ interface Treat {
 
 interface Props {
   onClose: (score: number) => void
+  onCancel: () => void
 }
 
-export function CatchTreats({ onClose }: Props) {
+export function CatchTreats({ onClose, onCancel }: Props) {
   const petXRef = useRef((GAME_W - PET_W) / 2)
   const treatsRef = useRef<Treat[]>([])
   const scoreRef = useRef<number>(0)
@@ -40,7 +41,7 @@ export function CatchTreats({ onClose }: Props) {
     undefined
   )
 
-  const [petX, setPetX] = useState(petXRef.current)
+  const [petX, setPetX] = useState(() => (GAME_W - PET_W) / 2)
   const [treats, setTreats] = useState<Treat[]>([])
   const [score, setScore] = useState(0)
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION)
@@ -177,7 +178,7 @@ export function CatchTreats({ onClose }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="flex justify-between w-full px-1">
+      <div className="flex justify-between w-full px-1 items-center">
         <span className="font-bold text-sm text-primary">🍪 {score}</span>
         <span
           className={`flex items-center gap-1 text-sm font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-gray-500 dark:text-gray-400'}`}
@@ -187,6 +188,12 @@ export function CatchTreats({ onClose }: Props) {
           />{' '}
           {timeLeft}s
         </span>
+        <button
+          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+          onClick={onCancel}
+        >
+          <i className="hn hn-times text-lg" />
+        </button>
       </div>
 
       <div
