@@ -22,7 +22,9 @@ export const Settings = () => {
   const currentName = usePetStore((s) => s.name)
   const setName = usePetStore((s) => s.setName)
   const reset = usePetStore((s) => s.reset)
-  const [input, setInput] = useState(currentName)
+  const [input, setInput] = useState(
+    currentName.charAt(0).toUpperCase() + currentName.slice(1)
+  )
   const [activeTheme, setActiveTheme] = useState<Theme>(getTheme())
   const [colorMode, setColorMode] = useState<ColorMode>(getColorMode())
   const [showConfirm, setShowConfirm] = useState(false)
@@ -30,7 +32,7 @@ export const Settings = () => {
   const handleSave = () => {
     const trimmed = input.trim()
     if (!trimmed || trimmed === currentName) return
-    setName(trimmed)
+    setName(trimmed.charAt(0).toUpperCase() + trimmed.slice(1))
   }
 
   const handleTheme = (theme: Theme) => {
@@ -53,7 +55,10 @@ export const Settings = () => {
             maxLength={20}
             spellCheck={false}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value
+              setInput(v.charAt(0).toUpperCase() + v.slice(1))
+            }}
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             className="input-base"
           />

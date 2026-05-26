@@ -73,7 +73,7 @@ function ProfileInfo({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col justify-between gap-0.5">
       <h3 className="text-xs text-primary uppercase tracking-wide">{label}</h3>
-      <span className="text-md font-semibold text-gray-700 dark:text-gray-200">
+      <span className="text-md font-semibold text-gray-700 dark:text-gray-200 capitalize">
         {value}
       </span>
     </div>

@@ -34,7 +34,10 @@ export const NameSetup = () => {
           spellCheck={false}
           placeholder="Name your pet…"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            const v = e.target.value
+            setInput(v.charAt(0).toUpperCase() + v.slice(1))
+          }}
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           className="input-base text-center"
         />
