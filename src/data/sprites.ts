@@ -130,7 +130,7 @@ export const LEVEL_SPRITES: Record<
       frameH: 128,
       cols: 2,
       frameCount: 4,
-      fps: 5
+      fps: 2.5
     },
     pet: {
       src: lvl1Pet,

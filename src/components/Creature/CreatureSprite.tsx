@@ -17,7 +17,7 @@ const moodToAnim: Record<Mood, SpriteAnim> = {
   happy: 'idle',
   neutral: 'idle',
   sad: 'idle',
-  angry: 'no',
+  angry: 'dislike',
   sick: 'sick',
   sleeping: 'idle'
 }
@@ -37,8 +37,8 @@ const bodyAnimations: Record<Mood, TargetAndTransition> = {
   neutral: { y: [0, -2, 0], transition: { repeat: Infinity, duration: 2 } },
   sad: { x: [0, -4, 4, 0], transition: { repeat: Infinity, duration: 2.5 } },
   angry: {
-    x: [0, -5, 5, -5, 0],
-    transition: { repeat: Infinity, duration: 0.4 }
+    x: [0, -3, 3, -3, 0],
+    transition: { repeat: Infinity, duration: 1.2 }
   },
   sick: {
     rotate: [0, -3, 3, 0],
