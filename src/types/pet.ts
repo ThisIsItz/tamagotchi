@@ -7,14 +7,11 @@ export type Mood =
   | 'sick'
   | 'sleeping'
 
-export type CreatureType = 'fox' | 'bunny'
-
 export interface MemoryEntry {
   id: string
   type: string
   text: string
   createdAt: number
-  sentiment: 'positive' | 'negative' | 'neutral'
 }
 
 export type Sex = 'male' | 'female'
@@ -33,6 +30,5 @@ export interface PetState {
   lastTickAt: number
   memories: MemoryEntry[]
   isAlive: boolean
-  creatureType: CreatureType
   lowStatTicks: number
 }

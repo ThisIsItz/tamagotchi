@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { PetState, MemoryEntry, CreatureType, Sex } from '../types/pet'
+import type { PetState, MemoryEntry, Sex } from '../types/pet'
 import { ACTION_EFFECTS, type ActionType } from '../utils/constants'
 import { clamp, deriveMood, applyDecay } from '../utils/petLogic'
 
@@ -12,8 +12,6 @@ const ACTION_LABELS: Record<ActionType, string> = {
   pet: 'Pets',
   medicine: 'Medicine'
 }
-
-
 
 const MEMORY_TEXTS: Record<ActionType, string[]> = {
   feed: ['Tiny snack', 'Tasty treat', 'Yummy meal'],
@@ -35,10 +33,7 @@ const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
     id: `${Date.now()}-${Math.random()}`,
     type: ACTION_LABELS[action],
     text,
-    createdAt: Date.now(),
-    sentiment: ['feed', 'play', 'clean', 'pet'].includes(action)
-      ? 'positive'
-      : 'neutral'
+    createdAt: Date.now()
   }
 }
 
@@ -62,7 +57,6 @@ const DEFAULT_STATS = {
 
 const makeInitialState = (): PetState => {
   const now = Date.now()
-  const creatureType: CreatureType = Math.random() < 0.5 ? 'fox' : 'bunny'
   const sex: Sex = Math.random() < 0.5 ? 'male' : 'female'
   return {
     name: '',
@@ -73,8 +67,7 @@ const makeInitialState = (): PetState => {
     lastTickAt: now,
     memories: [],
     isAlive: true,
-    bornAt: now,
-    creatureType
+    bornAt: now
   }
 }
 
@@ -104,7 +97,10 @@ export const usePetStore = create<PetStore>()(
         const happiness = clamp(state.happiness + (effects.happiness ?? 0))
         const energy = clamp(state.energy + (effects.energy ?? 0))
         const hygiene = clamp(state.hygiene + (effects.hygiene ?? 0))
-        const health = action === 'medicine' ? 100 : clamp(state.health + (effects.health ?? 0))
+        const health =
+          action === 'medicine'
+            ? 100
+            : clamp(state.health + (effects.health ?? 0))
         const mood = deriveMood({ hunger, happiness, energy, hygiene, health })
 
         const entry = makeMemoryEntry(action, pickMemoryText(action))
@@ -130,7 +126,13 @@ export const usePetStore = create<PetStore>()(
         const happiness = clamp(state.happiness + happinessGain)
         const energy = clamp(state.energy - 12)
         const hygiene = clamp(state.hygiene - 6)
-        const mood = deriveMood({ ...state, hunger, happiness, energy, hygiene })
+        const mood = deriveMood({
+          ...state,
+          hunger,
+          happiness,
+          energy,
+          hygiene
+        })
         const entry = makeMemoryEntry('play', pickMemoryText('play'))
         const memories = [entry, ...state.memories]
         set({ hunger, happiness, energy, hygiene, mood, memories })
