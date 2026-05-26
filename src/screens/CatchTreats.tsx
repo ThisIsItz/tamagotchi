@@ -159,7 +159,7 @@ export function CatchTreats({ onClose, onCancel }: Props) {
           <span className="text-primary font-bold text-base">{score}</span>{' '}
           treats!
         </p>
-        <p className="text-gray-500 dark:text-gray-400 text-md">
+        <p className="text-gray-600 dark:text-gray-300 text-md">
           {score >= 12
             ? 'Amazing! Max happiness boost!'
             : score >= 6
@@ -181,10 +181,10 @@ export function CatchTreats({ onClose, onCancel }: Props) {
       <div className="flex justify-between w-full px-1 items-center">
         <span className="font-bold text-sm text-primary">🍪 {score}</span>
         <span
-          className={`flex items-center gap-1 text-sm font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`flex items-center gap-1 text-sm font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-gray-600 dark:text-gray-300'}`}
         >
           <i
-            className={`hn hn-clock text-base ${timeLeft <= 5 ? 'text-red-400' : 'text-gray-500 dark:text-gray-400'}`}
+            className={`hn hn-clock text-base ${timeLeft <= 5 ? 'text-red-400' : 'text-gray-600 dark:text-gray-300'}`}
           />{' '}
           {timeLeft}s
         </span>
@@ -257,7 +257,7 @@ export function CatchTreats({ onClose, onCancel }: Props) {
         </button>
       </div>
 
-      <p className="text-xs text-gray-400 dark:text-gray-500">
+      <p className="text-sm text-gray-600 dark:text-gray-300">
         Tap the arrows or use ← → keys
       </p>
     </div>
