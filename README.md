@@ -2,6 +2,20 @@
 
 A browser-based virtual pet game inspired by the classic Tamagotchi, built as a personal project to explore state management, game loop design, and component architecture in React.
 
+## Demo
+
+**Hatching and naming**
+
+<video src="public/hatching.mp4" controls width="360"></video>
+
+**Caring for your pet**
+
+<video src="public/interact.mp4" controls width="360"></video>
+
+**Mini-game**
+
+<video src="public/game.mp4" controls width="360"></video>
+
 ## What it is
 
 You hatch a creature from an egg, give it a name, and keep it alive by feeding it, playing with it, letting it sleep, and keeping it clean. Stats decay in real time — neglect your pet long enough and it will get sick or die. The goal is to balance five stats (hunger, happiness, energy, hygiene, and health) across the creature's lifetime.
