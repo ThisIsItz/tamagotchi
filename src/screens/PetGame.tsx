@@ -52,7 +52,7 @@ export const PetGame = () => {
         <>
           <CreatureStage activeAction={activeAction} isSleeping={isSleeping} />
           <StatsPanel />
-          <ActionPanel onAction={handleAction} isSleeping={isSleeping} />
+          <ActionPanel onAction={handleAction} isSleeping={isSleeping} isActing={!!activeAction && !isSleeping} />
         </>
       )}
       {tab === 'profile' && <Profile />}

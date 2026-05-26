@@ -7,6 +7,7 @@ import FeedIcon from '../../assets/icons/feed.svg?react'
 interface Props {
   onAction: (action: ActionType) => void
   isSleeping?: boolean
+  isActing?: boolean
 }
 
 const BASE_ACTIONS: { action: ActionType; icon: ReactNode }[] = [
@@ -22,7 +23,7 @@ const MEDICINE_ACTION = {
   icon: <HnIcon name="science" />
 }
 
-export function ActionPanel({ onAction, isSleeping = false }: Props) {
+export function ActionPanel({ onAction, isSleeping = false, isActing = false }: Props) {
   const isAlive = usePetStore((s) => s.isAlive)
   const mood = usePetStore((s) => s.mood)
   const isSick = mood === 'sick'
@@ -40,7 +41,7 @@ export function ActionPanel({ onAction, isSleeping = false }: Props) {
           key={action}
           icon={icon}
           onClick={() => onAction(action)}
-          disabled={(!isAlive && action !== 'sleep') || (isSleeping && action !== 'sleep')}
+          disabled={(!isAlive && action !== 'sleep') || (isSleeping && action !== 'sleep') || isActing}
         />
       ))}
     </div>

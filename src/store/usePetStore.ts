@@ -90,7 +90,10 @@ export const usePetStore = create<PetStore>()(
         const rejected =
           (action === 'feed' && state.hunger >= 100) ||
           (action === 'play' && state.energy <= 20) ||
-          (action === 'sleep' && state.energy >= 80)
+          (action === 'sleep' && state.energy >= 80) ||
+          (action === 'clean' && state.hygiene >= 100)
+
+        if (rejected) return { rejected: true }
 
         const effects = ACTION_EFFECTS[action]
 
