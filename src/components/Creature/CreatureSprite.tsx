@@ -69,7 +69,7 @@ export function CreatureSprite({ mood, activeAction, level = 1 }: Props) {
 
   const config = levelSprites[anim] ?? fallback
 
-  const freezeBody = anim === 'sleep' || anim === 'bath'
+  const freezeBody = anim === 'sleep' || anim === 'bath' || anim === 'no'
 
   return (
     <motion.div
