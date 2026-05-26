@@ -72,10 +72,10 @@ The simulation runs on a tick system. Every 60 seconds a tick fires, and each st
 
 ## Getting Started
 
-\`\`\`bash
+```bash
 npm install
 npm run dev
-\`\`\`
+```
 
 ## Credits
 
