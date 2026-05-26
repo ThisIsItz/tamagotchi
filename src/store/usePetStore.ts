@@ -98,7 +98,7 @@ export const usePetStore = create<PetStore>()(
         const happiness = clamp(state.happiness + (effects.happiness ?? 0))
         const energy = clamp(state.energy + (effects.energy ?? 0))
         const hygiene = clamp(state.hygiene + (effects.hygiene ?? 0))
-        const health = clamp(state.health + (effects.health ?? 0))
+        const health = action === 'medicine' ? 100 : clamp(state.health + (effects.health ?? 0))
         const mood = deriveMood({ hunger, happiness, energy, hygiene, health })
 
         const entry = makeMemoryEntry(action, pickMemoryText(action))
