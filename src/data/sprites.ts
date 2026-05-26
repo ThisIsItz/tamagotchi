@@ -71,8 +71,6 @@ export const MEDICINE_CONFIG: SpriteConfig = {
   loop: false
 }
 
-// Eggs sheet: 16x16 frames, 13 cols. Rows 27-32 (1-indexed) = rows 26-31 (0-indexed).
-// Idle anim: cols 1-7 (0-indexed 0-6). Hatch anim: cols 8-13 (0-indexed 7-12).
 const EGG_COLS = 13
 const EGG_ROWS = [26, 27, 28, 29, 30, 31]
 
@@ -84,7 +82,7 @@ export const EGG_IDLE_CONFIGS: SpriteConfig[] = EGG_ROWS.map((row) => ({
   frameCount: 7,
   startFrame: row * EGG_COLS,
   fps: 4,
-  loop: true,
+  loop: true
 }))
 
 export const EGG_HATCH_CONFIGS: SpriteConfig[] = EGG_ROWS.map((row) => ({
@@ -95,7 +93,7 @@ export const EGG_HATCH_CONFIGS: SpriteConfig[] = EGG_ROWS.map((row) => ({
   frameCount: 6,
   startFrame: row * EGG_COLS + 7,
   fps: 5,
-  loop: false,
+  loop: false
 }))
 
 export const LEVEL_SPRITES: Record<

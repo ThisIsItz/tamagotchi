@@ -8,7 +8,18 @@ interface Props {
 }
 
 export function Sprite({ config, scale = 1.25, onComplete }: Props) {
-  const { src, frameW, frameH, cols, frameCount, fps, startFrame = 0, cropTop = 0, cropBottom = 0, loop = true } = config
+  const {
+    src,
+    frameW,
+    frameH,
+    cols,
+    frameCount,
+    fps,
+    startFrame = 0,
+    cropTop = 0,
+    cropBottom = 0,
+    loop = true
+  } = config
   const [frame, setFrame] = useState(startFrame)
 
   const displayW = frameW * scale
@@ -32,7 +43,7 @@ export function Sprite({ config, scale = 1.25, onComplete }: Props) {
       })
     }, 1000 / fps)
     return () => clearInterval(id)
-  }, [src, frameCount, fps, startFrame, loop])
+  }, [src, frameCount, fps, startFrame, loop, onComplete])
 
   const col = frame % cols
   const row = Math.floor(frame / cols)

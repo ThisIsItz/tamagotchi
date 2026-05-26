@@ -36,13 +36,72 @@ function StaticEggFrame({
   )
 }
 
+function SplitEggFrame({
+  config,
+  scale
+}: {
+  config: (typeof EGG_HATCH_CONFIGS)[0]
+  scale: number
+}) {
+  const { src, frameW, frameH, cols, startFrame = 0 } = config
+  const topFrame = startFrame + 4
+  const botFrame = startFrame + 5
+
+  const topCol = topFrame % cols
+  const topRow = Math.floor(topFrame / cols)
+  const botCol = botFrame % cols
+  const botRow = Math.floor(botFrame / cols)
+
+  const displayW = frameW * scale
+  const displayH = frameH * scale
+  const sheetW = frameW * cols * scale
+
+  const frameStyle = (col: number, row: number) => ({
+    width: displayW,
+    height: displayH,
+    backgroundImage: `url(${src})`,
+    backgroundSize: `${sheetW}px auto`,
+    backgroundPosition: `${-(col * displayW)}px ${-(row * frameH * scale)}px`,
+    backgroundRepeat: 'no-repeat' as const,
+    imageRendering: 'pixelated' as const
+  })
+
+  return (
+    <div
+      style={{ position: 'relative', width: displayW, height: displayH * 2 }}
+    >
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{ y: -displayH * 0.5 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          ...frameStyle(topCol, topRow)
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          ...frameStyle(botCol, botRow)
+        }}
+      />
+    </div>
+  )
+}
+
 export const EggHatch = () => {
   const setName = usePetStore((s) => s.setName)
   const [hatchStep, setHatchStep] = useState(0)
   const [showNaming, setShowNaming] = useState(false)
   const [input, setInput] = useState('')
 
-  const [eggIndex] = useState(() => Math.floor(Math.random() * EGG_IDLE_CONFIGS.length))
+  const [eggIndex] = useState(() =>
+    Math.floor(Math.random() * EGG_IDLE_CONFIGS.length)
+  )
   const idleConfig = EGG_IDLE_CONFIGS[eggIndex]
   const hatchConfig = EGG_HATCH_CONFIGS[eggIndex]
   const totalHatchFrames = hatchConfig.frameCount
@@ -50,9 +109,9 @@ export const EggHatch = () => {
   const handleTap = () => {
     if (showNaming) return
     const next = hatchStep + 1
-    if (next >= totalHatchFrames) {
-      setHatchStep(next)
-      setTimeout(() => setShowNaming(true), 300)
+    if (next >= totalHatchFrames - 1) {
+      setHatchStep(totalHatchFrames - 1)
+      setTimeout(() => setShowNaming(true), 600)
     } else {
       setHatchStep(next)
     }
@@ -68,7 +127,7 @@ export const EggHatch = () => {
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        className="card p-8 w-full max-w-md flex flex-col items-center gap-6"
+        className="card p-8 w-full max-w-md h-[600px] flex flex-col items-center gap-6"
       >
         <AnimatePresence mode="wait">
           {!showNaming && (
@@ -78,7 +137,7 @@ export const EggHatch = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.3 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center gap-4"
+              className="flex flex-col items-center gap-4 my-auto"
             >
               <motion.div
                 key={hatchStep}
@@ -93,6 +152,8 @@ export const EggHatch = () => {
                     frameOffset={0}
                     scale={SCALE}
                   />
+                ) : hatchStep === totalHatchFrames - 1 ? (
+                  <SplitEggFrame config={hatchConfig} scale={SCALE} />
                 ) : (
                   <StaticEggFrame
                     config={hatchConfig}
@@ -127,11 +188,12 @@ export const EggHatch = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center gap-6 w-full"
+              className="flex flex-col items-center gap-6 w-full my-auto"
             >
               <div className="text-center">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100"></h1>{' '}
-                It hatched!
+                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                  It hatched!
+                </h1>{' '}
                 <p className="text-gray-600 dark:text-gray-400 text-md mt-1">
                   Give your creature a name.
                 </p>
