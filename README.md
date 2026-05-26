@@ -10,11 +10,11 @@ A browser-based virtual pet game inspired by the classic Tamagotchi, built as a 
 
 **Caring for your pet**
 
-<video src="https://github.com/user-attachments/assets/77b8029c-a5a7-4045-bf0a-4aae76cd3c15" controls width="160" style="max-height:400px"></video>
+<video src="https://github.com/user-attachments/assets/b07ab0af-8729-4353-98cf-ff71bf894e7f" controls width="160" style="max-height:400px"></video>
 
 **Mini-game**
 
-<video src="https://github.com/user-attachments/assets/b07ab0af-8729-4353-98cf-ff71bf894e7f" controls width="160" style="max-height:400px"></video>
+<video src="https://github.com/user-attachments/assets/77b8029c-a5a7-4045-bf0a-4aae76cd3c15" controls width="160" style="max-height:400px"></video>
 
 ## What it is
 
