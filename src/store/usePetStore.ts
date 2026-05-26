@@ -40,6 +40,7 @@ const makeMemoryEntry = (action: ActionType, text: string): MemoryEntry => {
 interface PetStore extends PetState {
   setName: (name: string) => void
   performAction: (action: ActionType) => { rejected: boolean }
+  logSleep: () => void
   sleepRegen: () => void
   applyPlayResult: (score: number) => void
   tick: (ticks?: number) => void
@@ -108,6 +109,13 @@ export const usePetStore = create<PetStore>()(
 
         set({ hunger, happiness, energy, hygiene, health, mood, memories })
         return { rejected }
+      },
+
+      logSleep: () => {
+        const state = get()
+        if (!state.isAlive) return
+        const entry = makeMemoryEntry('sleep', pickMemoryText('sleep'))
+        set({ memories: [entry, ...state.memories] })
       },
 
       sleepRegen: () => {

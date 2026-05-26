@@ -15,9 +15,12 @@ export const PetGame = () => {
   const isSleepingRef = useRef(false)
   usePetTick(isSleepingRef)
   const performAction = usePetStore((s) => s.performAction)
+  const logSleep = usePetStore((s) => s.logSleep)
   const sleepRegen = usePetStore((s) => s.sleepRegen)
   const applyPlayResult = usePetStore((s) => s.applyPlayResult)
-  const [activeAction, setActiveAction] = useState<ActionType | 'no' | undefined>()
+  const [activeAction, setActiveAction] = useState<
+    ActionType | 'no' | undefined
+  >()
   const [isSleeping, setIsSleeping] = useState(false)
   const [showGame, setShowGame] = useState(false)
   const [tab, setTab] = useState<NavTab>('pet')
@@ -27,7 +30,10 @@ export const PetGame = () => {
   const handleAction = (action: ActionType) => {
     if (action === 'sleep') {
       if (isSleeping) {
-        if (sleepTimer.current) { clearInterval(sleepTimer.current); sleepTimer.current = null }
+        if (sleepTimer.current) {
+          clearInterval(sleepTimer.current)
+          sleepTimer.current = null
+        }
         isSleepingRef.current = false
         setIsSleeping(false)
         setActiveAction(undefined)
@@ -35,6 +41,7 @@ export const PetGame = () => {
         isSleepingRef.current = true
         setIsSleeping(true)
         setActiveAction('sleep')
+        logSleep()
         sleepRegen()
         sleepTimer.current = setInterval(sleepRegen, 3000)
       }
@@ -81,10 +88,16 @@ export const PetGame = () => {
       {tab === 'pet' && (
         <>
           {showGame ? (
-            <CatchTreats onClose={handleGameFinish} onCancel={handleGameCancel} />
+            <CatchTreats
+              onClose={handleGameFinish}
+              onCancel={handleGameCancel}
+            />
           ) : (
             <>
-              <CreatureStage activeAction={activeAction} isSleeping={isSleeping} />
+              <CreatureStage
+                activeAction={activeAction}
+                isSleeping={isSleeping}
+              />
               <StatsPanel />
               <ActionPanel
                 onAction={handleAction}
