@@ -15,7 +15,9 @@ export const PetGame = () => {
   usePetTick(isSleepingRef)
   const performAction = usePetStore((s) => s.performAction)
   const sleepRegen = usePetStore((s) => s.sleepRegen)
-  const [activeAction, setActiveAction] = useState<ActionType | 'no' | undefined>()
+  const [activeAction, setActiveAction] = useState<
+    ActionType | 'no' | undefined
+  >()
   const [isSleeping, setIsSleeping] = useState(false)
   const [tab, setTab] = useState<NavTab>('pet')
   const actionTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -24,7 +26,10 @@ export const PetGame = () => {
   const handleAction = (action: ActionType) => {
     if (action === 'sleep') {
       if (isSleeping) {
-        if (sleepTimer.current) { clearInterval(sleepTimer.current); sleepTimer.current = null }
+        if (sleepTimer.current) {
+          clearInterval(sleepTimer.current)
+          sleepTimer.current = null
+        }
         isSleepingRef.current = false
         setIsSleeping(false)
         setActiveAction(undefined)
@@ -52,7 +57,11 @@ export const PetGame = () => {
         <>
           <CreatureStage activeAction={activeAction} isSleeping={isSleeping} />
           <StatsPanel />
-          <ActionPanel onAction={handleAction} isSleeping={isSleeping} isActing={!!activeAction && !isSleeping} />
+          <ActionPanel
+            onAction={handleAction}
+            isSleeping={isSleeping}
+            isActing={!!activeAction && !isSleeping}
+          />
         </>
       )}
       {tab === 'profile' && <Profile />}

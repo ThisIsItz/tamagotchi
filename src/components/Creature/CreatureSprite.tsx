@@ -19,7 +19,7 @@ const moodToAnim: Record<Mood, SpriteAnim> = {
   sad: 'idle',
   angry: 'no',
   sick: 'sick',
-  sleeping: 'sleep'
+  sleeping: 'idle'
 }
 
 const actionToAnim: Partial<Record<ActionType, SpriteAnim>> = {
