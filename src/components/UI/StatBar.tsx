@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 
 interface Props {
@@ -7,16 +6,10 @@ interface Props {
   value: number
 }
 
-const BAR_COLORS = {
-  good: 'stat-bar-good',
-  warn: 'stat-bar-warn',
-  bad: 'stat-bar-bad'
-} as const
-
 const barColor = (value: number): string => {
-  if (value >= 60) return BAR_COLORS.good
-  if (value >= 30) return BAR_COLORS.warn
-  return BAR_COLORS.bad
+  if (value >= 60) return 'stat-bar-good'
+  if (value >= 30) return 'stat-bar-warn'
+  return 'stat-bar-bad'
 }
 
 export const StatBar = ({ label, icon, value }: Props) => {
@@ -31,13 +24,11 @@ export const StatBar = ({ label, icon, value }: Props) => {
         {icon}
       </span>
       <div className="flex-1 gap-0.5 flex flex-col">
-        <h1 className="text-xs text-primary ">{label}</h1>
+        <h1 className="text-xs text-primary">{label}</h1>
         <div className="h-3 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-          <motion.div
-            initial={false}
-            className={`h-full rounded-full ${barColor(pct)}`}
-            animate={{ width: `${pct}%` }}
-            transition={{ duration: 4, ease: 'easeOut' }}
+          <div
+            className={`h-full rounded-full transition-[width] duration-[4000ms] ease-out ${barColor(pct)}`}
+            style={{ width: `${pct}%` }}
           />
         </div>
       </div>
