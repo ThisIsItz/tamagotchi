@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { usePetStore } from '../../store/usePetStore'
 import { CreatureSprite, SPRITE_DISPLAY_SIZE } from './CreatureSprite'
 import { Sprite } from './Sprite'
-import { FOOD_EAT_CONFIG } from '../../data/sprites'
+import { FOOD_EAT_CONFIG, MEDICINE_CONFIG } from '../../data/sprites'
 import type { ActionType } from '../../utils/constants'
 
 const STAGE_WIDTH = 300
@@ -19,6 +19,7 @@ interface Props {
 
 export function CreatureStage({ activeAction, isSleeping = false }: Props) {
   const mood = usePetStore((s) => s.mood)
+  const isSick = mood === 'sick'
   const [posX, setPosX] = useState<number>(MAX_X / 2)
   const moveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -50,6 +51,21 @@ export function CreatureStage({ activeAction, isSleeping = false }: Props) {
         </motion.div>
 
         <AnimatePresence>
+          {isSick && (
+            <motion.div
+              key="sick"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.3 }}
+              className="absolute bottom-16 left-4 pointer-events-none"
+            >
+              <i className="hn hn-bug-solid text-3xl text-green-500" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
           {activeAction === 'feed' && (
             <motion.div
               key="food"
@@ -60,6 +76,21 @@ export function CreatureStage({ activeAction, isSleeping = false }: Props) {
               className="absolute bottom-16 left-1/2 -translate-x-1/2 pointer-events-none"
             >
               <Sprite config={FOOD_EAT_CONFIG} scale={1.5} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {activeAction === 'medicine' && (
+            <motion.div
+              key="medicine"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 0.5 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.2 }}
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none"
+            >
+              <Sprite config={MEDICINE_CONFIG} scale={1.5} />
             </motion.div>
           )}
         </AnimatePresence>

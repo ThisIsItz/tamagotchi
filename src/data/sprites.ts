@@ -10,6 +10,7 @@ import lvl1Pet from '../assets/sprites/lvl1/pet.png'
 import lvl1No from '../assets/sprites/lvl1/no.png'
 import deadSheet from '../assets/sprites/status/dead.png'
 import foodSheet from '../assets/sprites/status/food.png'
+import medicineSheet from '../assets/sprites/status/medicine.png'
 
 export interface SpriteConfig {
   src: string
@@ -47,10 +48,6 @@ export const DEAD_ANGEL_CONFIG: SpriteConfig = {
   cropTop: 40
 }
 
-// Food sprite — sheet is 4 cols × 128px frames
-// Cake eating: row4-col2 → row4-col4 → row5-col1 → row5-col2 (5 frames, 0-indexed start=13)
-// 4000ms / 5 frames = 800ms per frame = 1.25 fps, play once
-// cropBottom=35 removes the plant/leaf decoration at the bottom of later frames
 export const FOOD_EAT_CONFIG: SpriteConfig = {
   src: foodSheet,
   frameW: 128,
@@ -61,6 +58,16 @@ export const FOOD_EAT_CONFIG: SpriteConfig = {
   fps: 1.25,
   loop: false,
   cropBottom: 35
+}
+
+export const MEDICINE_CONFIG: SpriteConfig = {
+  src: medicineSheet,
+  frameW: 128,
+  frameH: 128,
+  cols: 2,
+  frameCount: 4,
+  fps: 1.25,
+  loop: false
 }
 
 export const LEVEL_SPRITES: Record<

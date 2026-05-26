@@ -14,7 +14,7 @@ const BASE_ACTIONS: { action: ActionType; icon: ReactNode }[] = [
   { action: 'play', icon: <HnIcon name="gaming" /> },
   { action: 'sleep', icon: <HnIcon name="lightbulb" /> },
   { action: 'clean', icon: <HnIcon name="broom-solid" /> },
-  { action: 'pet', icon: <HnIcon name="huggingface" /> },
+  { action: 'pet', icon: <HnIcon name="heart-solid" /> },
   { action: 'medicine', icon: <HnIcon name="science" /> }
 ]
 
