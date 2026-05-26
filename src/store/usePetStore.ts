@@ -46,6 +46,7 @@ interface PetStore extends PetState {
   setName: (name: string) => void
   performAction: (action: ActionType) => { rejected: boolean }
   sleepRegen: () => void
+  applyPlayResult: (score: number) => void
   tick: (ticks?: number) => void
   reset: () => void
 }
@@ -119,6 +120,20 @@ export const usePetStore = create<PetStore>()(
         const energy = clamp(state.energy + 3)
         const mood = deriveMood({ ...state, energy })
         set({ energy, mood })
+      },
+
+      applyPlayResult: (score: number) => {
+        const state = get()
+        if (!state.isAlive) return
+        const happinessGain = Math.max(4, Math.min(score * 2, 30))
+        const hunger = clamp(state.hunger - 8)
+        const happiness = clamp(state.happiness + happinessGain)
+        const energy = clamp(state.energy - 12)
+        const hygiene = clamp(state.hygiene - 6)
+        const mood = deriveMood({ ...state, hunger, happiness, energy, hygiene })
+        const entry = makeMemoryEntry('play', pickMemoryText('play'))
+        const memories = [entry, ...state.memories]
+        set({ hunger, happiness, energy, hygiene, mood, memories })
       },
 
       tick: (ticks = 1) => {
