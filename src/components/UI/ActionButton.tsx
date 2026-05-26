@@ -25,8 +25,8 @@ export function ActionButton({ icon, onClick, disabled = false }: Props) {
         transition
         ${
           disabled
-            ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed'
-            : 'bg-white/80 shadow-sm ring-1 ring-primary/60 hover:bg-white hover:shadow-md dark:bg-gray-700/80 dark:hover:bg-gray-700'
+            ? 'bg-gray-100 dark:bg-gray-800/60 dark:ring-1 dark:ring-white/10 cursor-not-allowed'
+            : 'bg-white/80 shadow-sm ring-1 ring-primary/60 hover:bg-white hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-primary/50 dark:hover:bg-gray-700/80 dark:shadow-md'
         }
       `}
     >
